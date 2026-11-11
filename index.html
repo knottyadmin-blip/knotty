@@ -880,7 +880,8 @@ function freshDb(){ return { users:{}, matches:{}, history:{}, ig:{}, reviews:[]
 let db = freshDb();
 
 async function q(p){ const { data, error } = await p; if(error) throw error; return data; }
-function loginEmail(id){ id = String(id || "").trim().toLowerCase(); return id.includes("@") ? id : loginTemplate.replace("{id}", id); }   // 이메일은 그대로, 예전 아이디는 로그인용 주소로
+const ADMIN_LOGIN_EMAIL = "knotty.admin@gmail.com";   // 아이디 admin = 이 이메일 계정
+function loginEmail(id){ id = String(id || "").trim().toLowerCase(); return id.includes("@") ? id : id === "admin" ? ADMIN_LOGIN_EMAIL : loginTemplate.replace("{id}", id); }   // 이메일은 그대로, 예전 아이디는 로그인용 주소로
 let PW_RECOVERY = /type=recovery/.test(location.hash + location.search);   // 비밀번호 재설정 메일의 링크로 들어왔는지
 function errText(e){ return (e && (e.message || e.error_description)) || String(e || ""); }
 
