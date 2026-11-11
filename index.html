@@ -694,7 +694,8 @@ body::before{background:var(--bg)}
 .pr-btns button[disabled]{opacity:.3;cursor:default}
 .prio-score{margin:10px 0 0;display:flex;flex-direction:column;gap:3px;font-size:12.5px;color:var(--muted)}
 .prio-score b{color:var(--fg)}
-.prio-pick li{touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab;transition:transform .16s ease,box-shadow .16s ease;position:relative}
+.prio-pick li{user-select:none;-webkit-user-select:none;transition:transform .16s ease,box-shadow .16s ease;position:relative}
+.prio-pick .pr-grip{touch-action:none;cursor:grab;margin-left:auto;padding:10px 4px 10px 18px}
 .prio-pick.sorting li{transition:transform .16s ease}
 .prio-pick li.dragging{transition:none;z-index:2;cursor:grabbing;box-shadow:0 14px 30px -12px rgba(17,19,24,.45)}
 .prio-pick li:focus-visible{outline:2px solid var(--red);outline-offset:2px}
@@ -786,6 +787,47 @@ body::before{background:var(--bg)}
 .quiz-sum li{display:flex;flex-direction:column;gap:3px}
 .quiz-sum span{color:var(--muted)}
 .quiz-sum b{font-weight:600}
+.unit-input{position:relative}
+.unit-input .input{padding-right:44px}
+.unit-input span{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:14px}
+.admin-row .ph-gone{display:grid;place-items:center;text-align:center;font-size:11px;line-height:1.3;color:var(--muted)}
+.left-note{margin-bottom:14px;border:1px solid var(--line)}
+.left-note b{display:block;font-size:16px}
+.left-note p{margin:6px 0 10px;color:var(--muted);font-size:14px;line-height:1.5}
+.inapp-note{margin:0 0 14px;border:1px solid var(--accent)}
+.inapp-note b{display:block;font-size:15px}
+.inapp-note p{margin:6px 0 10px;color:var(--muted);font-size:13.5px;line-height:1.5}
+.no-capture{display:flex;gap:8px;align-items:flex-start;margin:0 4px 10px;color:var(--muted);font-size:12.5px;line-height:1.45}
+.no-capture .i{width:16px;height:16px;flex:none;margin-top:1px}
+.no-capture b{color:var(--red-ink);font-weight:600}
+.wait-out{margin-top:12px;display:grid;gap:8px;justify-items:center;text-align:center}
+.a2{display:flex;flex-direction:column;gap:22px;padding-top:max(18px, env(safe-area-inset-top,0px));min-height:calc(100vh - 140px)}
+.a2-top{display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+.a2-icon{width:64px;height:64px;border-radius:18px;background:var(--fg);color:var(--bg);display:grid;place-items:center;box-shadow:var(--shadow)}
+.a2-icon span{display:block;width:44px;color:#fff}
+.a2-icon svg{width:100%;height:auto;display:block}
+.a2-icon svg *{fill:currentColor}
+.a2-kicker{margin:6px 0 0;font-size:12.5px;font-weight:600;letter-spacing:.08em;color:var(--red-ink)}
+.a2-title{margin:0;font-size:27px;line-height:1.28;letter-spacing:-.02em;font-weight:700}
+.a2-lead{margin:0;color:var(--muted);font-size:14.5px;line-height:1.6}
+.a2-tabs{display:flex;gap:6px;overflow-x:auto;padding:4px;border-radius:14px;background:var(--surface-3);scrollbar-width:none}
+.a2-tabs button{flex:1 0 auto;border:0;background:transparent;padding:9px 10px;border-radius:10px;font-size:13px;font-weight:500;color:var(--muted);white-space:nowrap}
+.a2-tabs button[aria-selected="true"]{background:var(--surface-2);color:var(--fg);box-shadow:0 1px 2px rgba(17,19,24,.08)}
+.a2-steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:0;position:relative}
+.a2-steps li{display:grid;grid-template-columns:22px 48px 1fr;gap:12px;align-items:center;padding:14px 0;border-bottom:1px dashed var(--line)}
+.a2-steps li:last-child{border-bottom:0}
+.a2-n{font-size:12px;font-weight:700;color:var(--faint);font-variant-numeric:tabular-nums}
+.a2-ic{width:48px;height:48px;border-radius:14px;border:1px solid var(--line);background:var(--surface-2);display:grid;place-items:center;color:#0a7cff}
+.a2-ic .i{width:24px;height:24px}
+.a2-k{font-size:13px;font-weight:700;color:#0a7cff}
+.a2-t{display:block;font-weight:500;font-size:15px;line-height:1.45}
+.a2-t b{font-weight:700}
+.a2-steps small{display:block;margin-top:3px;color:var(--muted);font-size:12.5px;line-height:1.5}
+.a2-warn{margin:0;padding:12px 14px;border-radius:14px;background:rgba(224,48,78,.08);color:var(--red-ink);font-size:13px;line-height:1.5}
+.a2-warn .linkish{background:none;border:0;padding:0;color:inherit;text-decoration:underline;font-weight:600}
+.a2-foot{margin-top:auto;position:sticky;bottom:max(16px, env(safe-area-inset-bottom,0px));padding-top:8px}
+.a2-foot .btn{width:100%}
+.input:disabled{color:var(--muted);opacity:.7;cursor:not-allowed}
 </style>
 </head>
 <body>
@@ -807,7 +849,12 @@ const REGIONS = ["서울","경기도","인천","강원도","충청북도","충�
 const SEOUL_GU = ["강남구","강동구","강북구","강서구","관악구","광진구","구로구","금천구","노원구","도봉구","동대문구","동작구","마포구","서대문구","서초구","성동구","성북구","송파구","양천구","영등포구","용산구","은평구","종로구","중구","중랑구"];
 const FEM = ["지향","지양","무관"];
 const ACTS = ["간술","카페","식사"];
-const MAX_PLACES = 5, AGE_LO = 20, AGE_HI = 40;
+const MAX_PLACES = 5, AGE_LO = 20, AGE_HI = 50;   // 50 = 50세 이상
+const josa = w => { const c = String(w).charCodeAt(String(w).length - 1) - 0xAC00; return c >= 0 && c <= 11171 && c % 28 ? "을" : "를"; };
+const ageLabel = (lo, hi) => lo === hi ? (hi >= AGE_HI ? "50세 이상" : `${lo}세`) : `${lo}–${hi >= AGE_HI ? "50+" : hi}세`;
+const ageFits = (j, age) => age >= j.ageMin && (j.ageMax >= AGE_HI || age <= j.ageMax);
+const WANTS = [["want_drink", "drink", "음주"], ["want_smoke", "smoke", "흡연"], ["want_date", "dateStyle", "데이트 스타일"], ["want_contact", "contact", "연락 스타일"], ["want_relation", "relation", "원하는 관계"]];
+const wantOk = (want, have) => !want || !want.length || want.includes("상관없음") || (have || []).some(v => want.includes(v));
 const MEET_PLACES = ["홍대"];   // 지금은 홍대에서만 만나요. 지역을 늘리면 여기에 추가해요.
 const MAX_LIKES = 10;
 /* ===== 서버 연결 (Supabase) ===========================================
@@ -888,13 +935,15 @@ function toUser(p, priv, join){
     mustChange: !!(priv && priv.must_change), quizDone: !!(priv && priv.quiz), quiz: (priv && priv.quiz) || null, termsVer: (priv && priv.terms_ver) || "", termsAt: ts(priv && priv.terms_at), emailOpt: !!(priv && priv.email_opt), emailOptAt: ts(priv && priv.email_opt_at), createdAt: ts(p.created_at), hasAccount: true, sample: false,
     verifyPhoto: verifyCache[p.id] || "", photoVer: p.photo_ver || 0,
     profile: p.has_profile ? {
-      nickname: p.nickname || "", age: p.age || "", likes: p.likes || [], give: p.give || "", hair: p.hair || "",
+      nickname: p.nickname || "", age: p.age || "", height: p.height || "", likes: p.likes || [], give: p.give || "", hair: p.hair || "",
       talco: p.talco || "", feminism: p.feminism || "", region: p.region || "", gu: p.gu || "",
       work: p.work || "", workGu: p.work_gu || "", bio: p.bio || "", extras: fixExtras(p.extras), photos: photos.slice(), instagram: (priv && priv.instagram) || ""
     } : null
   };
   if(join){
-    u.join = { places: join.places, acts: join.acts, hair: join.hair, ageMin: join.age_min, ageMax: join.age_max, feminism: join.feminism === "상관없음" ? "무관" : join.feminism, dist: join.dist || "무관", zones: join.zones || [], useThread: !!join.use_thread, prio: Array.isArray(join.prio) ? join.prio.slice() : null };
+    u.join = { places: join.places, acts: join.acts, hair: join.hair, ageMin: join.age_min, ageMax: join.age_max, feminism: join.feminism === "상관없음" ? "무관" : join.feminism, dist: join.dist || "무관", zones: join.zones || [], heightMin: join.height_min ?? HEIGHT_LO, heightMax: join.height_max ?? HEIGHT_HI,
+      wantGive: join.want_give || [],
+      wants: { want_drink: join.want_drink || ["상관없음"], want_smoke: join.want_smoke || ["상관없음"], want_date: join.want_date || ["상관없음"], want_contact: join.want_contact || ["상관없음"], want_relation: join.want_relation || ["상관없음"] }, useThread: !!join.use_thread, prio: Array.isArray(join.prio) ? join.prio.slice() : null };
     u.joinDate = join.date; u.joinedAt = ts(join.joined_at);
   }
   return u;
@@ -925,6 +974,7 @@ let loading = null;
 function since(days){ const d = new Date(Date.parse(kstDate() + "T00:00:00Z") - days * 86400000); return d.toISOString().slice(0, 10); }
 async function loadAll(){
   if(!sb || !MY) return;
+  await syncClock();
   myCodesStale = true;
   if(loading) return loading;
   loading = (async () => {
@@ -935,7 +985,7 @@ async function loadAll(){
   try{ await loading; } finally{ loading = null; }
 }
 async function loadMember(today){
-  const [prof, priv, joins, ms, runs, um, rvs, bks, svs] = await Promise.all([
+  const [prof, priv, joins, ms, runs, um, rvs, bks, svs, lms] = await Promise.all([
     q(sb.from("profiles").select("*").eq("id", MY).maybeSingle()),
     q(sb.from("profile_private").select("*").eq("id", MY).maybeSingle()),
     q(sb.from("joins").select("*").eq("user_id", MY).eq("date", today)),
@@ -944,9 +994,11 @@ async function loadMember(today){
     q(sb.from("unmatched").select("*").eq("user_id", MY).gte("date", since(60))),
     q(sb.from("reviews").select("*").eq("from_id", MY)),
     q(sb.from("blocks").select("*").eq("blocker", MY)).catch(() => []),
-    q(sb.from("surveys").select("user_id").eq("user_id", MY)).catch(() => [])
+    q(sb.from("surveys").select("user_id").eq("user_id", MY)).catch(() => []),
+    q(sb.from("left_matches").select("id,match_date,left_name,reported,chat").eq("partner", MY).gte("match_date", since(3))).catch(() => [])
   ]);
   db.mySurvey = !!(svs || []).length;
+  db.leftMatches = (lms || []).map(x => ({ id: x.id, date: x.match_date, name: x.left_name || "상대", reported: !!x.reported, hasChat: !!(x.chat || []).length }));
   const users = {};
   if(prof){
     const todayMatch = (ms || []).find(m => m.date === today);
@@ -972,7 +1024,7 @@ async function loadMember(today){
   db.blocks = (bks || []).map(b => ({ id: b.blocked, name: b.blocked_name || "", at: ts(b.created_at) }));
 }
 async function loadAdmin(today){
-  const [profs, privs, joins, ms, runs, um, rvs, reqs, rps, codes, pres, svs] = await Promise.all([
+  const [profs, privs, joins, ms, runs, um, rvs, reqs, rps, codes, pres, svs, lefts] = await Promise.all([
     q(sb.from("profiles").select("*").order("created_at", { ascending: false }).limit(1000)),
     q(sb.from("profile_private").select("*").limit(1000)),
     q(sb.from("joins").select("*").eq("date", today).limit(1000)),
@@ -984,9 +1036,12 @@ async function loadAdmin(today){
     q(sb.from("reports").select("*").order("created_at", { ascending: false }).limit(300)).catch(() => []),
     q(sb.from("invite_codes").select("*").order("created_at", { ascending: false }).limit(2000)).catch(() => []),
     q(sb.from("preregs").select("*").order("created_at", { ascending: false }).limit(3000)).catch(() => []),
-    q(sb.from("surveys").select("*").order("created_at", { ascending: false }).limit(3000)).catch(() => [])
+    q(sb.from("surveys").select("*").order("created_at", { ascending: false }).limit(3000)).catch(() => []),
+    q(sb.from("left_members").select("*").order("left_at", { ascending: false }).limit(1000)).catch(() => [])
   ]);
   db.surveys = svs || [];
+  db.leftMembers = (lefts || []).map(x => ({ id: x.id, email: x.email || "", nickname: x.nickname || "", status: x.status || "", reports: x.reports || 0, hadMatch: !!x.had_match, at: ts(x.left_at), rejoinedAs: x.rejoined_as || null, rejoinedAt: ts(x.rejoined_at) }));
+  db.leftMatches = [];
   const vers = {}; (profs || []).forEach(p => { if(p.has_profile) vers[p.id] = p.photo_ver || 0; });
   await loadPhotoUrls(Object.keys(vers), id => vers[id]);
   const users = {};
@@ -1017,7 +1072,6 @@ async function afterLogin(uid){
 async function boot(){
   view = "loading"; render();
   if(window.RT_DEMO){ previewOnDesktop = true; await startTour(); return; }
-  if(/^#test/.test(location.hash)){ previewOnDesktop = true; await startTest(); return; }
   if(window.__RT_SB) sb = window.__RT_SB;     // 자동 테스트용 주입
   else if(!window.supabase || !window.supabase.createClient){ BOOT_MSG = "nolib"; view = "blocked"; render(); return; }
   else sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, { auth: { persistSession: true, autoRefreshToken: true, storageKey: "redthread.auth" } });
@@ -1128,7 +1182,7 @@ function renderChat(){
       <div><b>${esc(op.nickname)}</b><span id="cRemain">${closed ? "대화가 끝났어요" : chatEndLabel() + "까지 · " + remainText() + " 남음"}</span></div></div>
     <button class="icon-btn" id="cMore" type="button" aria-label="신고·차단">${FLAG_SVG}</button>
   </header>
-  <div class="chat-note">${ICON.moon}<span>${inBetaMatch() ? `채팅창은 ${chatEndLabel()}에 모두 사라져요. ${launchLabel(addDay(betaDay(), 1))} 오후 6시에 만날 장소를 정해 보세요.` : "채팅창은 오늘 밤 12시에 모두 사라져요. 만날 시간과 장소를 정해 보세요."}</span></div>
+  <div class="chat-note">${ICON.moon}<span>${inBetaMatch() ? `채팅창은 ${chatEndLabel()}에 닫혀요. ${launchLabel(addDay(betaDay(), 1))} 오후 6시에 만날 장소를 정해 보세요.` : "채팅창은 오늘 밤 12시에 닫혀요. 만날 시간과 장소를 정해 보세요."}</span></div>
   <div class="chat-list" id="cList" aria-live="polite"></div>
   ${closed ? `<div class="chat-closed"><b>대화방이 사라졌어요</b></div>` : `
   <div class="chat-bar">
@@ -1192,7 +1246,7 @@ const randCode = () => { for(;;){ let c = ""; for(let k = 0; k < 6; k++) c += CO
    ================================================================== */
 let TEST = null;
 function makeFakeSupabase(opt){
-  const T = { users:[], profiles:[], profile_private:[], joins:[], matches:[], match_runs:[], unmatched:[], messages:[], reviews:[], pw_requests:[], admins:[], blocks:[], reports:[], surveys:[], invite_codes:[], preregs:[],
+  const T = { users:[], profiles:[], profile_private:[], joins:[], matches:[], match_runs:[], unmatched:[], messages:[], reviews:[], pw_requests:[], admins:[], blocks:[], reports:[], surveys:[], invite_codes:[], preregs:[], left_members:[], left_matches:[],
               app_config:[{ key:"login_email", value: DEFAULT_LOGIN_EMAIL }, { key:"invite_required", value: opt.invites ? "on" : "off" }, { key:"member_invite_limit", value: "5" }, { key:"launch_date", value: "" }, { key:"prereg_url", value: "" }, { key:"prereg_threads", value: "1" }] };
   const files = { photos:{}, verify:{} };
   const IDENT = { matches:1, messages:1, reviews:1, pw_requests:1, reports:1 };
@@ -1210,21 +1264,25 @@ function makeFakeSupabase(opt){
   const matchDay = () => { const b = betaDate(), t = today(); return b && t >= b && t <= addD(b, 1) ? b : t; };
   const joinDay = () => { const b = betaDate(), t = today(); return b && t < b ? b : t; };
   const joinOpen = () => { const b = betaDate(); return b ? today() < b : hour() < 11; };
-  const betaFull = () => betaOn() && T.profiles.filter(p => !T.admins.some(a => a.user_id === p.id)).length >= (parseInt(cfgV("beta_max"), 10) || 100);
+  const betaFull = () => betaOn() && T.profiles.filter(p => !T.admins.some(a => a.user_id === p.id)).length >= (parseInt(cfgV("beta_max"), 10) || 500);
   const myStatus = () => (T.profiles.find(p => p.id === uid) || {}).status;
   const canSee = t => t === uid || isAdmin() || T.matches.some(m => m.date === matchDay() && !m.closed_at && ((m.a === uid && m.b === t) || (m.b === uid && m.a === t)));
   const chatMember = mid => { const m = T.matches.find(x => x.id === mid); return !!m && !!uid && !m.closed_at && (m.a === uid || m.b === uid) && m.a_resp === "like" && m.b_resp === "like"; };
-  const r2edit = () => hour() >= 11 && hour() < 13 && T.unmatched.some(u => u.date === today() && u.user_id === uid && u.round === 1)
-    && !T.matches.some(m => m.date === today() && (m.a === uid || m.b === uid)) && !T.match_runs.some(r => r.date === today() && r.run2_at);
+  const deadR1 = m => m.round === 1 && (m.a_resp === "pass" || m.b_resp === "pass" || !!m.closed_at);   // 넘겼거나 정지·차단으로 끝났어요   // 1차 상대를 누군가 넘겼어요
+  const r2edit = () => hour() >= 11 && hour() < 13 && T.match_runs.some(r => r.date === today() && !r.run2_at)
+    && !T.matches.some(m => m.date === today() && (m.a === uid || m.b === uid) && !deadR1(m));
+  const chatVisible = mid => { if(!chatMember(mid)) return false; const m = T.matches.find(x => x.id === mid), b = betaDate();   // 채팅창이 닫히면 두 사람 모두 못 봐요 (서버엔 30일 보관)
+    return b && m.date === b ? today() <= addD(b, 1) : today() === m.date; };
   const chatWritable = mid => { if(!chatMember(mid)) return false; const m = T.matches.find(x => x.id === mid); if(m.date !== matchDay()) return false;
     return m.date === betaDate() ? (today() > m.date || hour() >= 11) : (hour() >= 11 && hour() <= 23); };
   const canReview = (mid, to) => { const m = T.matches.find(x => x.id === mid); return !!m && m.a_resp === "like" && m.b_resp === "like" && ((m.a === uid && m.b === to) || (m.b === uid && m.a === to)); };
   const READ = {
     profiles: r => canSee(r.id), profile_private: r => r.id === uid || isAdmin(), joins: r => r.user_id === uid || isAdmin(),
     matches: r => r.a === uid || r.b === uid || isAdmin(), match_runs: () => !!uid, unmatched: r => r.user_id === uid || isAdmin(),
-    messages: r => chatMember(r.match_id), reviews: r => r.from_id === uid || isAdmin(), pw_requests: () => isAdmin(),
+    messages: r => chatVisible(r.match_id), reviews: r => r.from_id === uid || isAdmin(), pw_requests: () => isAdmin(),
     app_config: () => true, admins: r => r.user_id === uid,
-    blocks: r => r.blocker === uid || isAdmin(), reports: r => r.reporter === uid || isAdmin(), invite_codes: () => isAdmin(), preregs: () => isAdmin(), surveys: r => r.user_id === uid || isAdmin()
+    blocks: r => r.blocker === uid || isAdmin(), reports: r => r.reporter === uid || isAdmin(), invite_codes: () => isAdmin(), preregs: () => isAdmin(), surveys: r => r.user_id === uid || isAdmin(),
+    left_members: () => isAdmin(), left_matches: r => r.partner === uid
   };
   const INSERT = {
     joins: r => r.user_id === uid && r.date === joinDay() && (joinOpen() || r2edit()) && myStatus() === "approved",
@@ -1248,8 +1306,15 @@ function makeFakeSupabase(opt){
       if(!row.places || !row.places.length || !row.acts || !row.acts.length || !row.hair || !row.hair.length || row.age_min > row.age_max
         || !["지향","지양","무관"].includes(row.feminism) || (row.dist && !DIST.includes(row.dist))) throw E("violates check constraint", "23514");
       if(!row.dist) row.dist = "무관"; if(!row.zones) row.zones = [];
-      if(row.prio == null) row.prio = ["feminism","hair","age","dist","give"];
-      if(!(Array.isArray(row.prio) && row.prio.length === 5 && ["feminism","hair","age","dist","give"].every(k => row.prio.includes(k)))) throw E("violates check constraint", "23514");
+      const P9 = ["dist","hair","drink","smoke","likes","dateStyle","height","contact","relation"];
+      if(row.prio == null) row.prio = P9.slice();
+      if(!(Array.isArray(row.prio) && row.prio.length === 9 && P9.every(k => row.prio.includes(k)))) throw E("violates check constraint", "23514");
+      if(row.want_give == null) row.want_give = ["상관없음"];
+      if(!Array.isArray(row.want_give) || !row.want_give.length || row.want_give.length > 4 || !row.want_give.every(v => ["깁앤텍","온깁","온텍","상관없음"].includes(v))) throw E("violates check constraint", "23514");
+      ["want_drink","want_smoke","want_date","want_contact","want_relation"].forEach(k => { if(row[k] == null) row[k] = ["상관없음"]; if(!Array.isArray(row[k]) || !row[k].length) throw E("violates check constraint", "23514"); });
+      if(row.age_min != null && (row.age_min < 20 || row.age_min > 50 || row.age_max < 20 || row.age_max > 50)) throw E("violates check constraint", "23514");
+      if(row.height_min == null) row.height_min = 140; if(row.height_max == null) row.height_max = 190;
+      if(!(row.height_min >= 140 && row.height_max <= 190 && row.height_min <= row.height_max)) throw E("violates check constraint", "23514");
     }
     if(t === "surveys" && T.surveys.some(x => x.user_id === row.user_id)) throw E('duplicate key value violates unique constraint "surveys_pkey"', "23505");
     if(t === "reviews" && T.reviews.some(x => x.id !== row.id && x.match_id === row.match_id && x.from_id === row.from_id)) throw E("duplicate key value", "23505");
@@ -1257,7 +1322,7 @@ function makeFakeSupabase(opt){
   }
   function protect(t, row, old){
     if(isAdmin()) return;
-    if(t === "profiles"){ row.status = old.status; row.status_at = old.status_at; row.created_at = old.created_at; row.threads = old.threads; row.suspended_until = old.suspended_until; }
+    if(t === "profiles"){ row.status = old.status; row.status_at = old.status_at; row.created_at = old.created_at; row.threads = old.threads; row.suspended_until = old.suspended_until; if(old.age != null && old.age !== "") row.age = old.age; }
     if(t === "profile_private"){ row.login_id = old.login_id; if(row.must_change && !old.must_change) row.must_change = false; row.terms_ver = old.terms_ver; row.terms_at = old.terms_at; }
   }
   function emit(row){
@@ -1347,12 +1412,15 @@ function makeFakeSupabase(opt){
     T.messages = T.messages.filter(x => !old.includes(x.match_id));
     T.matches = T.matches.filter(m => !old.includes(m.id));
     if(round === 1) T.unmatched = T.unmatched.filter(x => x.date !== d);
-    const done1 = new Set(); T.matches.filter(m => m.date === d).forEach(m => { done1.add(m.a); done1.add(m.b); });
+    const done1 = new Set(); T.matches.filter(m => m.date === d && !(m.round === 1 && (m.a_resp === "pass" || m.b_resp === "pass" || m.closed_at))).forEach(m => { done1.add(m.a); done1.add(m.b); });
     const P = T.profiles.filter(p => p.status === "approved" && p.has_profile && !done1.has(p.id)).map(p => ({ p, j: T.joins.find(j => j.user_id === p.id && j.date === d) })).filter(x => x.j)
-      .map(({ p, j }) => ({ id: p.id, pri: !!j.use_thread && (p.threads || 0) > 0, profile: { nickname: p.nickname, age: p.age, likes: p.likes || [], give: p.give, hair: p.hair, feminism: p.feminism, region: p.region, gu: p.gu },
-        join: { places: j.places, acts: j.acts, hair: j.hair, ageMin: j.age_min, ageMax: j.age_max, feminism: j.feminism, dist: j.dist || "무관", zones: j.zones || [], prio: j.prio || null } }));
+      .map(({ p, j }) => ({ id: p.id, pri: !!j.use_thread && (p.threads || 0) > 0, quiz: (T.profile_private.find(x => x.id === p.id) || {}).quiz || null,
+        profile: { nickname: p.nickname, age: p.age, height: p.height || null, likes: p.likes || [], give: p.give, hair: p.hair, feminism: p.feminism, region: p.region, gu: p.gu, extras: p.extras || {} },
+        join: { places: j.places, acts: j.acts, hair: j.hair, ageMin: j.age_min, ageMax: j.age_max, heightMin: j.height_min ?? 140, heightMax: j.height_max ?? 190, feminism: j.feminism, dist: j.dist || "무관", zones: j.zones || [], prio: j.prio || null,
+          wantGive: j.want_give || null,
+          wants: { want_drink: j.want_drink, want_smoke: j.want_smoke, want_date: j.want_date, want_contact: j.want_contact, want_relation: j.want_relation } } }));
     const recent = (a, b) => (opt.always && (a === opt.always || b === opt.always)) ? false
-      : T.matches.some(m => m.date < d && daysBetween(m.date, d) <= REMATCH_DAYS && ((m.a === a && m.b === b) || (m.a === b && m.b === a)));
+      : T.matches.some(m => m.date <= d && daysBetween(m.date, d) <= REMATCH_DAYS && ((m.a === a && m.b === b) || (m.a === b && m.b === a)));
     const cands = [], hasCand = new Set();
     for(let i = 0; i < P.length; i++) for(let k = i + 1; k < P.length; k++){
       const [A, B] = P[i].id < P[k].id ? [P[i], P[k]] : [P[k], P[i]];
@@ -1380,13 +1448,15 @@ function makeFakeSupabase(opt){
       : Object.assign({}, prevRun, { date: d, run_at: prevRun.run_at || now(), total: prevRun.total || P.length, run2_at: now(), total2: P.length })]);
     return used.size / 2;
   }
+  const closeMatchesOf = id => T.matches.forEach(m => { if(!m.closed_at && m.date === matchDay() && (m.a === id || m.b === id)) m.closed_at = now(); });   // 정지하면 진행 중인 매칭을 닫아요
   const RPC = {
     is_admin: () => isAdmin(),
     respond_match: ({ m_id, val }) => {
       const m = T.matches.find(x => x.id === m_id && x.date === matchDay() && !x.closed_at);
       if(!m || !uid) return null;
-      if(m.a === uid && !m.a_resp) m.a_resp = val;
-      if(m.b === uid && !m.b_resp) m.b_resp = val;
+      // 좋아요 뒤에도 상대가 아직 답하지 않았으면 넘기기로 바꿀 수 있어요
+      if(m.a === uid && (!m.a_resp || (m.a_resp === "like" && val === "pass" && !m.b_resp))) m.a_resp = val;
+      else if(m.b === uid && (!m.b_resp || (m.b_resp === "like" && val === "pass" && !m.a_resp))) m.b_resp = val;
       return null;
     },
     partner_instagram: ({ m_id }) => {
@@ -1401,11 +1471,21 @@ function makeFakeSupabase(opt){
       T.pw_requests.push({ id: seq++, login_id: id, user_id: priv ? priv.id : null, note: String(p_note || "").replace(/[^A-Za-z0-9._@]/g, "").slice(0, 40), created_at: now(), done: false, temp: null });
       return null;
     },
-    admin_set_status: ({ p_uid, p_status }) => { if(!isAdmin()) throw E("not allowed"); const p = T.profiles.find(x => x.id === p_uid); if(p){ p.status = p_status; p.status_at = now(); p.suspended_until = null; } return null; },
+    admin_set_status: ({ p_uid, p_status }) => { if(!isAdmin()) throw E("not allowed"); const p = T.profiles.find(x => x.id === p_uid); if(p){ p.status = p_status; p.status_at = now(); p.suspended_until = null; } if(p_status === "suspended") closeMatchesOf(p_uid); return null; },
+    server_ms: () => null,   // 테스트 서버는 기기 시계를 그대로 써요
+    report_left: ({ p_id, p_reason, p_detail, p_with_chat }) => {
+      const lm = T.left_matches.find(x => x.id === p_id && x.partner === uid); if(!lm) throw E("기록을 찾지 못했어요");
+      if(lm.reported) throw E("이미 신고했어요");
+      const mem = T.left_members.find(x => x.id === lm.left_id) || {};
+      T.reports.push({ id: seq++, match_id: null, date: lm.match_date, reporter: uid, target: null, reporter_name: lm.partner_name, target_name: (lm.left_name || mem.nickname || "탈퇴한 회원") + " (탈퇴)", target_login: mem.email || null,
+        reason: p_reason, detail: String(p_detail || "").trim().slice(0, 500) || null, chat: p_with_chat ? lm.chat.map(c => ({ me: !c.left, text: c.text, at: c.at })) : [], status: "open", admin_note: null, created_at: now(), handled_at: null });
+      lm.reported = true; mem.reports = (mem.reports || 0) + 1; return null;
+    },
+    admin_delete_left: ({ p_id }) => { if(!isAdmin()) throw E("not allowed"); T.left_members = T.left_members.filter(x => x.id !== p_id); T.left_matches = T.left_matches.filter(x => x.left_id !== p_id); return null; },
     admin_suspend: ({ p_uid, p_days }) => {
       if(!isAdmin()) throw E("not allowed"); const p = T.profiles.find(x => x.id === p_uid); if(!p) return null;
       const u = p_days ? new Date(Date.now() + p_days * 86400000).toISOString() : null;
-      p.status = "suspended"; p.status_at = now(); p.suspended_until = u; T.joins = T.joins.filter(j => !(j.user_id === p_uid && j.date === joinDay())); return u;
+      p.status = "suspended"; p.status_at = now(); p.suspended_until = u; T.joins = T.joins.filter(j => !(j.user_id === p_uid && j.date === joinDay())); closeMatchesOf(p_uid); return u;
     },
     lift_my_suspension: () => { const p = T.profiles.find(x => x.id === uid); if(p && p.status === "suspended" && p.suspended_until && Date.parse(p.suspended_until) <= Date.now()){ p.status = "approved"; p.status_at = now(); p.suspended_until = null; return true; } return false; },
     admin_reset_password: ({ p_req }) => {
@@ -1416,7 +1496,7 @@ function makeFakeSupabase(opt){
       Object.assign(r, { temp: t, done: true, done_at: now() }); return t;
     },
     admin_close_request: ({ p_req }) => { if(!isAdmin()) throw E("not allowed"); const r = T.pw_requests.find(x => x.id === p_req); if(r) Object.assign(r, { done: true, temp: null }); return null; },
-    close_chats: () => { if(!isAdmin()) throw E("not allowed"); const b = betaDate(); const keep = new Set(T.matches.filter(m => b && m.date === b && today() <= addD(b, 1)).map(m => m.id)); T.messages = T.messages.filter(x => keep.has(x.match_id)); return null; },
+    close_chats: () => { if(!isAdmin()) throw E("not allowed"); const cut = Date.now() - 30 * 864e5; T.messages = T.messages.filter(x => Date.parse(x.created_at) >= cut); return null; },   // 30일 지난 대화만 지워요
     save_quiz: ({ p }) => { if(!uid) throw E("not allowed"); const qz = {}; Object.keys(p || {}).forEach(k => { if(["2","3","4","8","10","11","13","15","16","19"].includes(k) && /^[1-4]$/.test(String(p[k]))) qz[k] = Number(p[k]); });
       if(Object.keys(qz).length < 10) throw E("모든 문항에 답해 주세요"); const r = T.profile_private.find(x => x.id === uid); if(r){ r.quiz = qz; r.quiz_at = now(); } return null; },
     run_matching: ({ d, p_round }) => { if(!isAdmin()) throw E("not allowed"); return runMatching(d || today(), p_round || 1); },
@@ -1443,7 +1523,6 @@ function makeFakeSupabase(opt){
     member_create_code: ({ p_memo }) => {
       if(!uid) throw E("not allowed");
       if(!T.profiles.some(p => p.id === uid && p.status === "approved")) throw E("인증이 끝난 회원만 초대코드를 만들 수 있어요");
-      if(betaOn()) throw E("베타 테스트 동안은 초대코드를 관리자만 만들 수 있어요");
       const lim = RPC.member_invite_limit();
       if(T.invite_codes.filter(c => c.created_by === uid && !c.revoked).length >= lim) throw E(`초대코드는 ${lim}개까지 만들 수 있어요`);
       for(;;){ const c = randCode();
@@ -1506,6 +1585,15 @@ function makeFakeSupabase(opt){
     delete_my_account: () => {
       if(!uid) throw E("not allowed"); if(isAdmin()) throw E("관리자 계정은 탈퇴할 수 없어요");
       const me = uid, priv = T.profile_private.find(x => x.id === me) || {};
+      { // 탈퇴 기록 (재가입 확인 · 상대의 신고용)
+        const pf = T.profiles.find(x => x.id === me) || {}, todays = T.matches.filter(m => m.date === matchDay() && (m.a === me || m.b === me));
+        const lid = seq++;
+        T.left_members.push({ id: lid, user_id: me, email: String((T.users.find(u => u.id === me) || {}).email || "").toLowerCase(), nickname: pf.nickname || null, status: pf.status || null, suspended_until: pf.suspended_until || null,
+          reports: T.reports.filter(r => r.target === me).length, had_match: !!todays.length, left_at: now(), rejoined_as: null, rejoined_at: null });
+        todays.forEach(m => T.left_matches.push({ id: seq++, left_id: lid, match_date: m.date, round: m.round || 1, partner: m.a === me ? m.b : m.a,
+          partner_name: (m.a === me ? m.b_info : m.a_info || {}).nickname || null, left_name: ((m.a === me ? m.a_info : m.b_info) || {}).nickname || null,
+          chat: T.messages.filter(x => x.match_id === m.id).slice(-200).map(x => ({ left: x.sender === me, text: x.text, at: x.created_at })), reported: false, created_at: now() }));
+      }
       T.matches.filter(m => m.date === matchDay() && (m.a === me || m.b === me)).forEach(m => {
         const o = m.a === me ? m.b : m.a; T.unmatched = T.unmatched.filter(x => !(x.date === m.date && x.user_id === o));
         T.unmatched.push({ date: m.date, user_id: o, reason: "상대가 탈퇴해서 오늘 매칭이 종료됐어요", info: m.a === me ? m.b_info : m.a_info });
@@ -1549,6 +1637,7 @@ function makeFakeSupabase(opt){
           code.used_at = now(); code.used_email = String(email).toLowerCase(); code._pending = true;
         }
         const id = "u_" + Math.random().toString(36).slice(2, 10);
+        T.left_members.forEach(x => { if(x.email === String(email).toLowerCase()){ x.rejoined_as = id; x.rejoined_at = now(); } });   // 탈퇴했던 이메일로 재가입
         T.invite_codes.forEach(x => { if(x._pending){ x.used_by = id; delete x._pending; } });
         T.users.push({ id, email, pw: password });
         T.profiles.push({ id, status: "pending", status_at: null, created_at: now(), has_profile: false, likes: [], photo_ver: 0, threads: 0 });
@@ -1582,7 +1671,8 @@ function makeFakeSupabase(opt){
       async createSignedUrls(paths){ uid = sess.uid; return { data: paths.map(p => (canReadFile(bucket, p) && files[bucket][p]) ? { path: p, signedUrl: files[bucket][p], error: null } : { path: p, signedUrl: null, error: "Object not found" }), error: null }; },
       async remove(paths){
         uid = sess.uid; const out = [];
-        paths.forEach(p => { if(uid && p.split("/")[0] === uid && files[bucket][p]){ delete files[bucket][p]; out.push({ name: p }); } });
+        const adm = bucket === "verify" && T.admins.some(a => a.user_id === uid);   // 관리자는 인증 사진을 지울 수 있어요
+        paths.forEach(p => { if(uid && (p.split("/")[0] === uid || adm) && files[bucket][p]){ delete files[bucket][p]; out.push({ name: p }); } });
         return { data: out, error: null };
       },
       async createSignedUrl(p){ uid = sess.uid; return (canReadFile(bucket, p) && files[bucket][p]) ? { data: { signedUrl: files[bucket][p] }, error: null } : { data: null, error: { message: "Object not found" } }; }
@@ -1624,17 +1714,17 @@ function seedTestServer(withMe){
   const f = makeFakeSupabase({ date: () => kstDate(), hour: () => kstHour(), always: TEST_BOT, signupAdmin: true, invites: true });
   ["K7QM2X", "H3V9TA", "F8RW4N"].forEach((c, i) => f._.T.invite_codes.push({ code: c, memo: ["테스트용 코드", "친구 지민에게", "동아리 모임"][i], created_at: new Date(Date.now() - (3 - i) * 86400000).toISOString(), created_by: null, used_by: null, used_email: null, used_at: null, revoked: false }));
   const ld0 = new Date(Date.now() + 9 * 3600e3 + 14 * 86400e3).toISOString().slice(0, 10), ld = kstDate() < "2026-12-04" ? "2026-12-04" : ld0;
-  [["launch_date", ld], ["prereg_url", "https://forms.gle/knotty-example"], ["prereg_threads", "1"], ["beta_mode", "off"], ["beta_max", "100"], ["survey_open", "off"]].forEach(([k, v]) => { const r = f._.T.app_config.find(x => x.key === k); if(r) r.value = v; });
+  [["launch_date", ld], ["prereg_url", "https://forms.gle/knotty-example"], ["prereg_threads", "1"], ["beta_mode", "off"], ["beta_max", "500"], ["survey_open", "off"]].forEach(([k, v]) => { const r = f._.T.app_config.find(x => x.key === k); if(r) r.value = v; });
   [["jimin@example.com", "출시일 (토)"], ["seoyeon@example.com", "출시 다음 날 (일)"], ["haneul@example.com", "출시일 (토)"], ["tester@knotty.kr", "출시일 (토)"]].forEach(([e, w], i) =>
     f._.T.preregs.push({ email: e, wish: w, created_at: new Date(Date.now() - (i + 1) * 3600e3).toISOString(), user_id: e === "tester@knotty.kr" ? TEST_ME : null, granted_at: e === "tester@knotty.kr" ? new Date().toISOString() : null }));
   f._.T.invite_codes.push({ code: "W2EL7C", memo: "베타 0기 첫 회원", created_at: new Date(Date.now() - 5 * 86400000).toISOString(), created_by: null, used_by: TEST_BOT, used_email: "partner@knotty.kr", used_at: new Date(Date.now() - 4 * 86400000).toISOString(), revoked: false });
   const joinAll = { places: MEET_PLACES.slice(), acts: ACTS.slice(), hair: ["상관없음"], age_min: AGE_LO, age_max: AGE_HI, feminism: "무관", dist: "무관", zones: [] };
   f._.addUser({ id: TEST_BOT, login: "test_partner", pw: "partner1", status: "approved", instagram: "redthread.partner",
-    profile: { nickname: "테스트 상대", age: 28, likes: ["요리","영화","카페 투어","산책"], give: "깁앤텍", hair: "단발", feminism: "지향", region: "서울", gu: "마포구", work: "서울", work_gu: "용산구", bio: "퇴근하고 홍대에서 맥주 한잔 좋아해요. 전시랑 요리 얘기 환영!", extras: { mbti: ["ENFP"], relation: ["천천히 알아가기"], dates: ["전시", "맛집"], traits: ["다정한", "유머러스한"], drink: ["가끔"], pets: ["고양이와 살아요"] } },
+    profile: { nickname: "테스트 상대", age: 28, height: 163, likes: ["요리","영화","카페 투어","산책"], give: "깁앤텍", hair: "단발", feminism: "지향", region: "서울", gu: "마포구", work: "서울", work_gu: "용산구", bio: "퇴근하고 홍대에서 맥주 한잔 좋아해요. 전시랑 요리 얘기 환영!", extras: { mbti: ["ENFP"], relation: ["천천히 알아가기"], dates: ["전시", "맛집"], traits: ["다정한", "유머러스한"], drink: ["가끔"], smoke: ["비흡연"], dateStyle: ["반반"], contact: ["메시지가 좋아요"], pets: ["고양이와 살아요"] } },
     photos: [0,1,2,3].map(k => avatar("상", (340 + k * 20) % 360)), join: joinAll });
   if(withMe){
     f._.addUser({ id: TEST_ME, login: "tester", pw: "test1234", admin: true, status: "approved", instagram: "my.test",
-      profile: { nickname: "나(테스트)", age: 27, likes: ["요리","영화","산책","보드게임"], give: "깁앤텍", hair: "장발", feminism: "지향", region: "서울", gu: "마포구" },
+      profile: { nickname: "나(테스트)", age: 27, height: 165, likes: ["요리","영화","산책","보드게임"], give: "깁앤텍", hair: "장발", feminism: "지향", region: "서울", gu: "마포구", extras: { drink: ["가끔"], smoke: ["비흡연"], dateStyle: ["밖"], contact: ["자주 연락해요"], relation: ["진지한 연애"] } },
       photos: [0,1,2,3].map(k => avatar("나", (200 + k * 25) % 360)),
       join: { places: MEET_PLACES.slice(), acts: ["카페","간술"], hair: ["상관없음"], age_min: AGE_LO, age_max: AGE_HI, feminism: "무관", dist: "가까운 곳", zones: [] } });
     f._.uid = TEST_ME;
@@ -1779,36 +1869,36 @@ function openTestPanel(){
     <button class="btn btn-primary" type="button" data-t="exit" style="margin-top:10px">테스트 끝내기</button>`);
   w.querySelectorAll("[data-t]").forEach(b => b.onclick = async () => { w.remove(); await testDo(b.dataset.t); });
 }
-if(window.__RT_EXPOSE) window.__RT_EXPOSE({ makeFakeSupabase, setRecovery: v => { PW_RECOVERY = v; }, get recovery(){ return PW_RECOVERY; }, logout: () => logout(), get view(){ return view; }, get db(){ return db; }, get MY(){ return MY; }, get OWNER(){ return OWNER; },
+if(false) window.__RT_EXPOSE({ makeFakeSupabase, setRecovery: v => { PW_RECOVERY = v; }, get recovery(){ return PW_RECOVERY; }, logout: () => logout(), get view(){ return view; }, get db(){ return db; }, get MY(){ return MY; }, get OWNER(){ return OWNER; },
   setPhoto: p => { signupPhoto = p; }, setDraftPhoto: (i, u) => { draft.photos[i] = u; }, testDo, go, render, refresh, kstDate });
 
 /* ===== 약관 · 개인정보 · 신고 · 차단 · 회원 탈퇴 =========================
    약관 내용이 바뀌면 TERMS_VER 날짜를 바꿔 주세요. 모든 회원이 다음 접속 때 다시 동의해요.
    LEGAL의 운영자·연락처는 실제 정보로 바꿔 주세요.
    ================================================================== */
-const TERMS_VER = "2026-11-06";
+const TERMS_VER = "2026-11-12";   // v5.11 약관 개정 (합니다체 · 보관 기간 · 깁앤텍 · 재가입)
 const LEGAL = {
   operator: "knotty 운영자",                         // 운영자(개인 또는 사업자) 이름
   officer: "knotty 운영자",                          // 개인정보 보호책임자
-  contact: "사이트 안 비밀번호 찾기 요청 (가입한 이메일로 답장드려요)", // 문의 받을 곳 (이메일 등)
-  effective: "2026년 11월 6일"
+  contact: "사이트 안 '비밀번호 찾기' 요청 (가입한 이메일로 답장드립니다)", // 문의 받을 곳 (이메일 등)
+  effective: "2026년 11월 12일"
 };
 const FLAG_SVG = '<svg class="i" viewBox="0 0 24 24"><path d="M5 21V4"/><path d="M5 4h11l-2 4 2 4H5"/></svg>';
 
 const AGREE = [
-  { key:"adult",     label:"만 19세 이상 여성이에요" },
-  { key:"terms",     label:"이용약관에 동의해요", doc:"terms" },
-  { key:"privacy",   label:"개인정보 수집·이용에 동의해요", doc:"privacy" },
-  { key:"sensitive", label:"민감정보(가치관·성향) 처리에 동의해요", doc:"sensitive" }
+  { key:"adult",     label:"만 19세 이상 여성입니다" },
+  { key:"terms",     label:"이용약관에 동의합니다", doc:"terms" },
+  { key:"privacy",   label:"개인정보 수집·이용에 동의합니다", doc:"privacy" },
+  { key:"sensitive", label:"민감정보(가치관·성향) 처리에 동의합니다", doc:"sensitive" }
 ];
 function consentBlock(pf){
   return `<div class="agree" id="${pf}-agree">
-    <label class="check agree-all"><input type="checkbox" data-ag="all"> <b>모두 동의해요</b></label>
+    <label class="check agree-all"><input type="checkbox" data-ag="all"> <b>모두 동의합니다</b></label>
     ${AGREE.map(a => `<div class="agree-row">
       <label class="check"><input type="checkbox" data-ag="${a.key}"> <span><em>필수</em> ${a.label}</span></label>
       ${a.doc ? `<button type="button" class="text-btn" data-doc="${a.doc}">보기</button>` : ""}</div>`).join("")}
     <div class="agree-row">
-      <label class="check"><input type="checkbox" data-ag="email" data-opt> <span><em class="opt">선택</em> 이메일로 매칭·채팅 알림 받기</span></label>
+      <label class="check"><input type="checkbox" data-ag="email" data-opt> <span><em class="opt">선택</em> 이메일로 매칭·채팅 알림을 받겠습니다</span></label>
       <button type="button" class="text-btn" data-doc="email">보기</button></div>
     <button type="button" class="text-btn agree-policy" data-doc="policy">개인정보 처리방침 전문 보기</button>
   </div>`;
@@ -1826,102 +1916,123 @@ function emailOptOf(pf){ const c = document.querySelector(`#${pf}-agree [data-ag
 
 const DOCS = {
   email: ["이메일 알림 수신 동의 (선택)", () => `
-<p class="doc-meta">동의하지 않아도 knotty를 똑같이 이용할 수 있어요.</p>
+<p class="doc-meta">동의하지 않아도 knotty를 똑같이 이용할 수 있습니다.</p>
 <table class="doc-table"><tbody>
-<tr><th>받는 내용</th><td>매칭 결과(1차·2차), 새 채팅 메시지, 서로 좋아요, 인증 승인처럼 서비스 이용에 필요한 알림</td></tr>
-<tr><th>쓰는 정보</th><td>가입한 이메일 주소</td></tr>
-<tr><th>보관 기간</th><td>동의를 끄거나 회원 탈퇴할 때까지</td></tr>
-<tr><th>바꾸는 곳</th><td>내 정보 → 설정 → 이메일 알림에서 언제든 켜고 끌 수 있어요</td></tr>
+<tr><th>받는 내용</th><td>매칭 결과(1차·2차), 새 채팅 메시지, 매칭 완료, 인증 승인 등 서비스 이용에 필요한 알림</td></tr>
+<tr><th>이용하는 정보</th><td>가입한 이메일 주소</td></tr>
+<tr><th>보관 기간</th><td>동의를 철회하거나 회원 탈퇴할 때까지</td></tr>
+<tr><th>변경 방법</th><td>내 정보 → 설정 → 이메일 알림에서 언제든지 켜고 끌 수 있습니다.</td></tr>
 </tbody></table>
-<p>광고나 홍보 메일은 이 동의로 보내지 않아요. 보내게 되면 따로 동의를 받을게요.</p>`],
+<p>이 동의로 광고·홍보 메일을 보내지 않습니다. 광고·홍보 메일을 보내게 되면 별도로 동의를 받습니다.</p>
+<p>현재 이메일 발송 기능은 준비 중이며, 준비되는 대로 동의한 회원에게만 보냅니다.</p>`],
+
   terms: ["이용약관", () => `
 <p class="doc-meta">시행일 ${LEGAL.effective} · 운영자 ${esc(LEGAL.operator)}</p>
-<h3>제1조 목적</h3>
-<p>이 약관은 knotty(이하 '서비스')을 이용하는 회원과 운영자 사이의 권리와 의무를 정해요.</p>
-<h3>제2조 가입 자격</h3>
-<ul><li>만 19세 이상 여성만 가입할 수 있어요.</li>
-<li>가입할 때 올린 인증 사진을 운영자가 확인하고 승인해야 매칭에 참여할 수 있어요.</li>
-<li>한 사람은 하나의 계정만 쓸 수 있고, 계정을 다른 사람에게 빌려주거나 넘길 수 없어요.</li></ul>
-<h3>제3조 서비스 내용</h3>
-<ul><li>지금은 기존 회원이 준 초대코드가 있어야 가입할 수 있어요. 초대코드는 한 번만 쓸 수 있어요.</li>
-<li>회원은 매일 00:00~11:00에 참여하고 오늘의 조건을 골라요.</li>
-<li>11:00에 서비스가 조건이 맞는 회원 한 명과 이어줘요(1차). 1차에서 이어지지 않은 회원은 13:00에 나이 조건을 넓혀 페미니즘·헤어스타일 이상형이 서로 맞는 회원과 한 번 더 이어줄 수 있어요(2차). 이어진 두 사람은 서로의 프로필만 볼 수 있어요.</li>
-<li>둘 다 좋아요를 누르면 서로의 인스타그램이 공개되고 채팅창이 열려요. 채팅창은 그날 밤 12시에 모두 지워져요.</li>
-<li>사전등록한 회원에게는 실타래를 드려요. 실타래를 쓰면 조건이 맞는 회원 중에서 먼저 이어지고, 이어질 때만 1개가 줄어요. 실타래는 다른 사람에게 넘기거나 돈으로 바꿀 수 없어요.</li>
-<li>지금은 시범 운영(베타) 기간이라 기능과 운영 시간이 바뀌거나 잠시 멈출 수 있어요. 바뀌면 서비스 안에서 알려드려요.</li></ul>
-<h3>제4조 회원의 약속</h3>
-<p>회원은 아래 행동을 하지 않아요.</p>
-<ul><li>다른 사람의 사진·정보를 쓰거나 나이·성별을 속이는 일</li>
+<h3>제1조 (목적)</h3>
+<p>이 약관은 knotty(이하 "서비스")를 이용하는 회원과 운영자 사이의 권리, 의무 및 책임 사항을 정하는 것을 목적으로 합니다.</p>
+<h3>제2조 (가입 자격과 계정)</h3>
+<ul><li>서비스는 만 19세 이상 여성만 가입할 수 있습니다.</li>
+<li>가입하려면 초대코드가 필요합니다. 초대코드는 한 번만 사용할 수 있으며, 승인된 회원은 정해진 개수만큼 초대코드를 만들어 다른 사람을 초대할 수 있습니다.</li>
+<li>가입할 때 성별과 나이가 보이는 신분증과 서비스 이름·촬영 시각을 적은 메모를 함께 찍은 인증 사진을 올려야 합니다. 운영자가 인증 사진을 확인하고 승인한 회원만 매칭에 참여할 수 있습니다.</li>
+<li>한 사람은 하나의 계정만 사용할 수 있으며, 계정을 다른 사람에게 빌려주거나 넘길 수 없습니다.</li>
+<li>나이는 처음 입력한 뒤에는 회원이 직접 바꿀 수 없습니다. 잘못 입력한 경우 운영자에게 문의해야 합니다.</li>
+<li>시범 운영(베타) 기간에는 가입 인원이 제한될 수 있습니다.</li></ul>
+<h3>제3조 (서비스 내용)</h3>
+<ul><li>회원은 참여 기간(평소에는 매일 00:00부터 11:00까지, 베타 기간에는 서비스 안에서 안내하는 기간)에 "오늘의 조건"을 골라 매칭에 참여합니다.</li>
+<li>서비스는 매일 11:00에 페미니즘, 나이, 원하는 깁앤텍 조건이 서로 맞는 회원 가운데, 각 회원이 정한 우선순위가 잘 맞는 한 명을 이어 드립니다(1차 매칭).</li>
+<li>1차 매칭에서 이어지지 않은 회원, 13:00 전에 1차 상대를 넘기거나 넘겨진 회원, 1차 매칭이 상대의 이용 정지·차단·탈퇴로 끝난 회원, 11:00부터 13:00 사이에 새로 참여한 회원은 13:00에 한 번 더 매칭될 수 있습니다(2차 매칭).</li>
+<li>회원 가입 직후 푼 연애 가치관 테스트의 답은 매칭 순서를 정할 때 가산점으로만 쓰이며, 상대에게 공개되지 않습니다.</li>
+<li>이어진 두 회원은 서로의 프로필만 볼 수 있습니다. 두 회원이 모두 좋아요를 누르면 서로의 인스타그램이 공개되고 채팅창이 열립니다.</li>
+<li>채팅창은 그날 밤 12시(베타 기간에는 서비스 안에서 안내하는 시각)에 닫히며, 그 뒤에는 두 회원 모두 대화를 볼 수 없습니다. 대화는 분쟁 해결과 신고 확인을 위해 서버에 30일 동안 보관한 뒤 삭제합니다.</li>
+<li>현재는 시범 운영(베타) 기간이므로 기능과 운영 시간이 바뀌거나 일시적으로 중단될 수 있습니다. 변경 사항은 서비스 안에서 안내합니다.</li></ul>
+<h3>제4조 (회원의 의무)</h3>
+<p>회원은 다음 행위를 해서는 안 됩니다.</p>
+<ul><li>다른 사람의 사진이나 정보를 사용하거나 나이·성별 등을 속이는 행위</li>
 <li>상대가 원하지 않는 성적인 말이나 행동, 괴롭힘, 혐오 표현, 위협</li>
-<li>매칭 상대의 사진·프로필·대화를 허락 없이 저장하거나 다른 곳에 퍼뜨리는 일</li>
-<li>돈이나 물건을 요구하는 일, 영업·홍보·다단계·종교 권유</li>
-<li>약속을 하고 연락 없이 나오지 않는 일이 반복되는 경우</li>
-<li>서비스를 해킹하거나 정상적인 운영을 방해하는 일</li></ul>
-<h3>제5조 만남과 안전</h3>
-<ul><li>처음 만날 때는 사람이 많은 공개된 장소에서 만나 주세요.</li>
-<li>회원끼리의 만남과 연락은 각자의 판단과 책임으로 이뤄져요. 운영자는 문제가 생겼을 때 신고를 받아 이 약관에 따라 조치해요.</li>
-<li>위급한 상황에서는 서비스 신고보다 먼저 112(경찰)에 신고해 주세요.</li></ul>
-<h3>제6조 신고와 이용 제한</h3>
-<ul><li>회원은 매칭된 상대를 신고하거나 차단할 수 있어요. 차단하면 그날 매칭이 끝나고 앞으로 다시 이어지지 않아요.</li>
-<li>운영자는 신고 내용과 기록을 확인해 경고, 이용 정지, 강제 탈퇴를 할 수 있어요. 안전과 관련된 심각한 경우에는 미리 알리지 않고 바로 정지할 수 있어요.</li>
-<li>정지에 이의가 있으면 문의처로 알려 주세요.</li></ul>
-<h3>제7조 회원 탈퇴</h3>
-<p>회원은 언제든지 내 정보 → 설정 → 회원 탈퇴에서 탈퇴할 수 있어요. 탈퇴하면 개인정보 처리방침에 따라 정보가 지워져요.</p>
-<h3>제8조 책임의 한계</h3>
-<ul><li>운영자는 회원이 직접 입력한 정보가 사실인지 모두 보증하지는 않아요.</li>
-<li>천재지변, 서버 업체의 장애처럼 운영자가 막을 수 없는 일로 생긴 손해에는 책임지지 않아요. 다만 운영자의 고의나 중대한 잘못이 있으면 그렇지 않아요.</li></ul>
-<h3>제9조 약관 변경</h3>
-<p>약관을 바꿀 때는 시행 7일 전부터(회원에게 불리한 변경은 30일 전부터) 서비스 안에서 알려드리고, 다음 접속 때 다시 동의를 받아요.</p>
+<li>매칭 상대의 사진·프로필·대화를 허락 없이 캡처·저장하거나, 다른 사람에게 보여주거나, 외부에 퍼뜨리는 행위. 상대가 서비스에 가입했다는 사실을 포함해 상대의 정보를 외부에 알리는 행위도 포함합니다.</li>
+<li>금전이나 물품을 요구하는 행위, 영업·홍보·다단계·종교 권유</li>
+<li>약속을 하고 연락 없이 나타나지 않는 행위를 반복하는 경우</li>
+<li>서비스를 해킹하거나 정상적인 운영을 방해하는 행위</li></ul>
+<p>제4조 세 번째 항목(캡처·유포)을 위반한 사실이 확인되면 운영자는 즉시 영구 이용 정지하며, 피해 회원의 법적 대응에 필요한 범위에서 협조합니다.</p>
+<h3>제5조 (만남과 안전)</h3>
+<ul><li>처음 만날 때는 사람이 많은 공개된 장소에서 만나시기 바랍니다.</li>
+<li>회원 사이의 만남과 연락은 각 회원의 판단과 책임으로 이루어집니다. 운영자는 문제가 생겼을 때 신고를 받아 이 약관에 따라 조치합니다.</li>
+<li>위급한 상황에서는 서비스 신고보다 먼저 112(경찰)에 신고하시기 바랍니다.</li></ul>
+<h3>제6조 (신고, 차단과 이용 제한)</h3>
+<ul><li>회원은 매칭된 상대를 신고하거나 차단할 수 있습니다. 차단하면 그날 매칭이 종료되고 앞으로 다시 이어지지 않습니다. 상대에게는 매칭이 종료되었다는 사실만 표시되며, 누가 종료했는지는 표시하지 않습니다.</li>
+<li>매칭 상대가 탈퇴한 경우에도, 그날 이어져 있던 회원은 탈퇴한 상대를 신고할 수 있습니다.</li>
+<li>운영자는 신고 내용과 기록을 확인해 경고, 기간 이용 정지, 영구 이용 정지, 강제 탈퇴 조치를 할 수 있습니다. 안전과 관련된 심각한 경우에는 미리 알리지 않고 즉시 정지할 수 있습니다.</li>
+<li>이용이 정지되면 그날 매칭 참여가 취소되고, 진행 중인 매칭과 채팅창도 즉시 닫힙니다.</li>
+<li>기간 이용 정지는 기간이 끝난 뒤 자동으로 해제됩니다.</li>
+<li>정지 조치에 이의가 있으면 문의처로 알려 주시기 바랍니다.</li></ul>
+<h3>제7조 (회원 탈퇴와 재가입)</h3>
+<ul><li>회원은 언제든지 내 정보 → 설정 → 회원 탈퇴에서 탈퇴할 수 있습니다. 탈퇴하면 개인정보 처리방침에 따라 정보가 삭제됩니다.</li>
+<li>재가입 악용을 막기 위해 탈퇴한 회원의 이메일과 탈퇴 당시 상태는 1년 동안 보관합니다. 같은 이메일로 다시 가입하면 운영자가 이를 확인할 수 있으며, 이용 정지 중 탈퇴한 경우 가입 승인이 거절될 수 있습니다.</li></ul>
+<h3>제8조 (책임의 한계)</h3>
+<ul><li>운영자는 회원이 직접 입력한 정보가 사실인지 모두 보증하지 않습니다.</li>
+<li>운영자는 천재지변, 서버 업체의 장애 등 운영자가 막을 수 없는 사유로 생긴 손해에 대해 책임지지 않습니다. 다만 운영자의 고의 또는 중대한 과실이 있는 경우에는 그렇지 않습니다.</li></ul>
+<h3>제9조 (약관 변경)</h3>
+<p>운영자가 약관을 바꿀 때는 시행 7일 전부터(회원에게 불리한 변경은 30일 전부터) 서비스 안에서 알리고, 다음 접속 때 다시 동의를 받습니다.</p>
 <h3>문의</h3>
 <p>${esc(LEGAL.contact)}</p>`],
 
   privacy: ["개인정보 수집·이용 동의 (필수)", () => `
-<table class="doc-table"><tr><th>수집 항목</th><td>이메일(예전에 가입한 회원은 아이디), 비밀번호(암호화해서 보관), 여성 인증 사진, 닉네임, 나이, 프로필 사진 4장, 좋아하는 것, 깁앤텍, 헤어스타일, 사는 지역, 인스타그램 아이디, 직장 위치(선택)</td></tr>
-<tr><th>이용하면서 생기는 정보</th><td>오늘의 조건, 매칭·좋아요 기록, 채팅(그날 밤 12시 삭제), 만남 후기, 신고·차단 기록, 가입에 쓴 초대코드, 사전등록 명단(이메일, 만나고 싶은 날), 실타래 기록, 접속 기록</td></tr>
-<tr><th>이용 목적</th><td>회원 확인과 인증, 매칭, 매칭 상대에게 프로필 보여주기, 서로 좋아요일 때 인스타그램 공개, 부정 이용 방지와 안전 관리, 문의 응대</td></tr>
-<tr><th>보관 기간</th><td>회원 탈퇴 시 바로 삭제해요. 다만 신고 기록은 분쟁 해결과 재가입 악용 방지를 위해 1년 보관한 뒤 지워요.</td></tr></table>
-<p>매칭된 상대에게는 닉네임, 나이, 프로필 사진, 지역, 직장 위치, 좋아하는 것, 깁앤텍·헤어스타일·페미니즘 정보가 그날 하루 보여요. 인스타그램은 서로 좋아요를 눌렀을 때만 보여요.</p>
-<p>동의하지 않을 수 있지만, 동의하지 않으면 가입과 서비스 이용이 어려워요.</p>`],
+<table class="doc-table">
+<tr><th>수집 항목</th><td>이메일, 비밀번호(암호화하여 보관), 인증 사진(신분증과 메모를 함께 찍은 사진), 닉네임, 나이, 키, 프로필 사진 4장, 자기소개, 사는 지역, 관심사, 깁앤텍, 헤어스타일, 나의 스타일(음주·흡연·데이트 스타일·연락 스타일·원하는 관계), 인스타그램 아이디(선택), 더 알려주고 싶은 나(MBTI·성격 키워드 등, 선택), 연애 가치관 테스트 답</td></tr>
+<tr><th>이용하면서 생기는 정보</th><td>오늘의 조건(원하는 나이·키·깁앤텍·헤어스타일·스타일, 거리, 우선순위), 매칭·좋아요 기록, 채팅, 만남 후기, 만족도 조사 답변, 신고·차단 기록, 가입에 사용한 초대코드와 내가 만든 초대코드, 접속 기록</td></tr>
+<tr><th>이용 목적</th><td>회원 확인과 인증, 매칭, 매칭 상대에게 프로필 보여주기, 매칭 완료 시 인스타그램 공개, 부정 이용·재가입 악용 방지와 안전 관리, 서비스 개선, 문의 응대</td></tr>
+<tr><th>보관 기간</th><td>
+· 인증 사진: 운영자가 확인(승인·반려)한 뒤 30일 보관 후 삭제<br>
+· 채팅: 채팅창이 닫힌 뒤 서버에 30일 보관 후 삭제 (보관 중에는 회원도 운영자 화면에서도 볼 수 없음)<br>
+· 그 밖의 회원 정보: 회원 탈퇴 시 즉시 삭제<br>
+· 신고 기록, 탈퇴한 회원의 이메일·닉네임·탈퇴 당시 상태: 분쟁 해결과 재가입 악용 방지를 위해 1년 보관 후 삭제<br>
+· 탈퇴한 날 이어져 있던 상대와의 매칭·대화: 상대 회원의 신고를 위해 30일 보관 후 삭제</td></tr></table>
+<p>매칭된 상대에게는 그날 닉네임, 나이, 키, 프로필 사진, 사는 지역, 자기소개, 관심사, 깁앤텍·헤어스타일·페미니즘, 나의 스타일, 더 알려주고 싶은 나가 보입니다. 인스타그램 아이디는 두 회원이 모두 좋아요를 눌렀을 때만 보입니다. 인증 사진과 연애 가치관 테스트 답은 상대에게 보이지 않습니다.</p>
+<p>동의하지 않을 수 있으나, 동의하지 않으면 가입과 서비스 이용이 어렵습니다.</p>`],
 
   sensitive: ["민감정보 처리 동의 (필수)", () => `
-<p>knotty는 여성 사이의 만남을 잇는 서비스라서, 법에서 '민감정보'로 따로 보호하는 정보를 다뤄요.</p>
-<table class="doc-table"><tr><th>항목</th><td>페미니즘 지향 여부(사상·신념에 관한 정보), knotty를 이용한다는 사실과 매칭 기록(성적 지향을 짐작할 수 있는 정보)</td></tr>
+<p>knotty는 여성 사이의 만남을 잇는 서비스이므로, 개인정보 보호법에서 "민감정보"로 따로 보호하는 정보를 처리합니다.</p>
+<table class="doc-table">
+<tr><th>항목</th><td>페미니즘 지향 여부와 연애 가치관 테스트 답(사상·신념에 관한 정보), 커밍아웃 여부(선택 입력), knotty를 이용한다는 사실과 매칭 기록(성적 지향을 짐작할 수 있는 정보)</td></tr>
 <tr><th>이용 목적</th><td>조건이 맞는 상대와 매칭, 매칭 상대에게 프로필 보여주기</td></tr>
-<tr><th>공개 범위</th><td>그날 이어진 매칭 상대 한 명과 운영자만 볼 수 있어요. 다른 회원에게는 보이지 않아요.</td></tr>
-<tr><th>보관 기간</th><td>회원 탈퇴 시 바로 삭제해요.</td></tr></table>
-<p>동의하지 않을 수 있지만, 이 정보 없이는 매칭을 할 수 없어서 가입이 어려워요.</p>`],
+<tr><th>공개 범위</th><td>그날 이어진 매칭 상대 한 명과 운영자만 볼 수 있습니다(연애 가치관 테스트 답은 상대에게 공개하지 않습니다). 다른 회원에게는 보이지 않습니다.</td></tr>
+<tr><th>보관 기간</th><td>회원 탈퇴 시 즉시 삭제합니다. 다만 채팅은 채팅창이 닫힌 뒤 30일, 탈퇴한 날의 매칭·대화는 30일 동안 보관한 뒤 삭제합니다.</td></tr></table>
+<p>동의하지 않을 수 있으나, 이 정보 없이는 매칭을 할 수 없어 가입이 어렵습니다.</p>`],
 
   policy: ["개인정보 처리방침", () => `
 <p class="doc-meta">시행일 ${LEGAL.effective}</p>
-<p>${esc(LEGAL.operator)}(이하 '운영자')는 개인정보 보호법을 지키고, 회원의 개인정보를 아래처럼 다뤄요.</p>
+<p>${esc(LEGAL.operator)}(이하 "운영자")는 개인정보 보호법을 준수하며, 회원의 개인정보를 다음과 같이 처리합니다.</p>
 <h3>1. 처리하는 개인정보와 목적</h3>
-<p>'개인정보 수집·이용 동의'와 '민감정보 처리 동의'에 적힌 항목을, 적힌 목적으로만 써요. 회원 동의 없이 광고나 다른 목적에 쓰지 않아요.</p>
+<p>"개인정보 수집·이용 동의"와 "민감정보 처리 동의"에 적힌 항목을 적힌 목적으로만 이용합니다. 회원의 동의 없이 광고나 다른 목적으로 이용하지 않습니다.</p>
 <h3>2. 보관 기간과 파기</h3>
-<ul><li>회원 정보·사진·매칭 기록·후기: 회원 탈퇴 시 바로 삭제</li>
-<li>채팅: 매일 밤 12시에 삭제 (신고할 때 첨부를 선택한 대화만 신고 기록과 함께 보관)</li>
+<ul><li>회원 정보·사진·매칭 기록·후기: 회원 탈퇴 시 즉시 삭제</li>
+<li>인증 사진: 운영자가 확인(승인·반려)한 뒤 30일 보관 후 삭제</li>
+<li>채팅: 채팅창은 밤 12시(베타 기간에는 안내한 시각)에 닫히고, 대화는 분쟁 해결과 신고 확인을 위해 서버에 30일 보관 후 삭제. 보관 중에는 회원도 운영자 화면에서도 볼 수 없으며, 신고에 첨부된 대화만 신고 기록과 함께 보관</li>
 <li>신고 기록: 1년 보관 후 삭제</li>
-<li>삭제한 정보는 되살릴 수 없게 지워요.</li></ul>
-<h3>3. 다른 사람에게 주는 정보</h3>
-<p>매칭 상대에게 그날 프로필이 보이고, 서로 좋아요일 때 인스타그램 아이디가 보여요. 그 밖에는 법에 따른 요청(수사기관 등)이 있을 때만 제공해요.</p>
+<li>탈퇴한 회원의 이메일·닉네임·탈퇴 당시 상태(이용 정지 여부, 받은 신고 수): 재가입 악용 방지를 위해 1년 보관 후 삭제(운영자가 먼저 삭제할 수 있음)</li>
+<li>탈퇴한 날 이어져 있던 상대와의 매칭·대화: 상대 회원의 신고를 위해 30일 보관 후 삭제. 상대 회원만 볼 수 있으며, 신고에 첨부할 때만 운영자에게 전달</li>
+<li>삭제한 정보는 복구할 수 없도록 파기합니다.</li></ul>
+<h3>3. 개인정보의 제공</h3>
+<p>매칭 상대에게 그날 프로필이 보이고, 매칭이 완료되면 인스타그램 아이디가 보입니다. 그 밖에는 법령에 따른 요청(수사기관 등)이 있는 경우에만 제공합니다.</p>
 <h3>4. 처리 위탁과 국외 이전</h3>
-<table class="doc-table"><tr><th>Supabase Inc. (미국)</th><td>회원 정보·사진 저장, 로그인 처리. 서비스를 쓰는 동안 인터넷으로 전송돼요. 저장 위치는 운영자가 고른 Supabase 서버 지역이에요.</td></tr>
-<tr><th>Vercel Inc. (미국)</th><td>웹사이트 전송. 접속 기록(IP 등)이 남을 수 있어요.</td></tr></table>
-<p>위탁·이전을 원하지 않으면 회원 탈퇴로 거부할 수 있어요. 다만 이 업체들 없이는 서비스를 제공할 수 없어요.</p>
+<table class="doc-table"><tr><th>Supabase Inc. (미국)</th><td>회원 정보·사진·대화 저장, 로그인 처리. 서비스를 이용하는 동안 인터넷으로 전송되며, 저장 위치는 운영자가 선택한 Supabase 서버 지역입니다.</td></tr>
+<tr><th>Vercel Inc. (미국)</th><td>웹사이트 전송. 접속 기록(IP 등)이 남을 수 있습니다.</td></tr></table>
+<p>위탁·이전을 원하지 않으면 회원 탈퇴로 거부할 수 있습니다. 다만 이 업체들 없이는 서비스를 제공할 수 없습니다.</p>
 <h3>5. 회원의 권리</h3>
-<ul><li>내 정보 화면에서 언제든지 보고 고칠 수 있어요.</li>
-<li>회원 탈퇴로 삭제를 요청할 수 있어요.</li>
-<li>열람·정정·삭제·처리 정지를 문의처로 요청하면 10일 안에 처리해요.</li></ul>
-<h3>6. 안전하게 지키는 방법</h3>
-<ul><li>비밀번호는 암호화해서 보관하고 운영자도 알 수 없어요.</li>
-<li>회원마다 볼 수 있는 정보를 서버 규칙으로 제한해요. 인증 사진은 운영자만, 프로필은 그날 매칭 상대만 볼 수 있어요.</li>
-<li>모든 통신은 암호화(HTTPS)돼요.</li></ul>
+<ul><li>회원은 내 정보 화면에서 언제든지 자신의 정보를 열람하고 수정할 수 있습니다. 다만 나이는 처음 입력한 뒤에는 운영자에게 요청해 수정할 수 있습니다.</li>
+<li>회원은 회원 탈퇴로 삭제를 요청할 수 있습니다.</li>
+<li>열람·정정·삭제·처리 정지를 문의처로 요청하면 10일 안에 처리합니다.</li></ul>
+<h3>6. 안전성 확보 조치</h3>
+<ul><li>비밀번호는 암호화하여 보관하며 운영자도 알 수 없습니다.</li>
+<li>회원마다 볼 수 있는 정보를 서버 규칙으로 제한합니다. 인증 사진은 운영자만, 프로필은 그날 매칭 상대만, 대화는 채팅창이 열려 있는 동안 두 회원만 볼 수 있습니다.</li>
+<li>모든 통신은 암호화(HTTPS)됩니다.</li></ul>
 <h3>7. 브라우저 저장소</h3>
-<p>로그인 상태와 읽은 알림을 기억하려고 이 기기의 브라우저 저장소를 써요. 광고용 추적은 하지 않아요.</p>
+<p>로그인 상태, 읽은 알림, 홈 화면 추가 안내 확인 여부를 기억하기 위해 이 기기의 브라우저 저장소를 사용합니다. 광고용 추적은 하지 않습니다.</p>
 <h3>8. 개인정보 보호책임자</h3>
 <p>${esc(LEGAL.officer)} · ${esc(LEGAL.contact)}</p>
 <p>개인정보 침해 상담: 개인정보침해신고센터 118, 개인정보분쟁조정위원회 1833-6972</p>
-<h3>9. 바뀔 때</h3>
-<p>이 방침이 바뀌면 시행 7일 전부터 서비스 안에서 알려드려요.</p>`]
+<h3>9. 처리방침의 변경</h3>
+<p>이 방침이 바뀌면 시행 7일 전부터 서비스 안에서 알립니다.</p>`]
 };
 function openDoc(key){
   const d = DOCS[key]; if(!d) return;
@@ -2005,6 +2116,35 @@ function openReport(matchId, name){
   });
 
 }
+/* 탈퇴한 상대 신고: 탈퇴하면 매칭과 대화가 지워지지만, 신고할 수 있게 30일 동안 기록을 남겨 둬요 */
+function openLeftReport(row){
+  let reason = "";
+  openSheet(`${row.name}님 신고하기`, `
+    <div class="stack">
+      <p class="hint" style="margin:0">상대는 탈퇴했지만 신고는 접수돼요. 같은 이메일로 다시 가입하면 관리자가 알 수 있어요.</p>
+      <div class="field"><span class="label">어떤 일이 있었나요?</span>
+        <div class="rv-opts one" id="rpReasons">${REPORT_REASONS.map(([v, l]) => `<button type="button" class="rv-opt" data-val="${v}" aria-pressed="false">${l}</button>`).join("")}</div></div>
+      <div class="field"><label for="rpDetail">자세한 내용 (선택)</label>
+        <textarea class="input area" id="rpDetail" maxlength="500" placeholder="언제, 어떤 일이 있었는지 적어 주세요"></textarea></div>
+      ${row.hasChat ? `<label class="check"><input type="checkbox" id="rpChat" checked> 그날 채팅 내용을 함께 보내요 (관리자만 봐요)</label>` : ""}
+      <button class="btn btn-primary" id="rpSend" type="button">신고하기</button>
+    </div>`, w => {
+    w.querySelector("#rpReasons").onclick = e => {
+      const b = e.target.closest(".rv-opt"); if(!b) return;
+      reason = b.dataset.val;
+      w.querySelectorAll("#rpReasons .rv-opt").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+    };
+    w.querySelector("#rpSend").onclick = async () => {
+      if(!reason) return toast("어떤 일이 있었는지 골라 주세요.");
+      const btn = w.querySelector("#rpSend"); btn.disabled = true;
+      const chat = w.querySelector("#rpChat");
+      try{
+        await q(sb.rpc("report_left", { p_id: row.id, p_reason: reason, p_detail: w.querySelector("#rpDetail").value.trim().slice(0, 500) || null, p_with_chat: !!(chat && chat.checked) }));
+        w.remove(); toast("신고를 접수했어요. 관리자가 확인할게요."); await refresh();
+      }catch(x){ btn.disabled = false; toast(/더 신고/.test(errText(x)) ? "오늘은 더 신고할 수 없어요." : /이미/.test(errText(x)) ? "이미 신고했어요." : "신고하지 못했어요. 다시 시도해 주세요."); }
+    };
+  });
+}
 function openBlock(matchId, name){
   openSheet(`${name || "상대"}님 차단하기`, `
     <div class="stack">
@@ -2032,7 +2172,7 @@ function openSafetyMenu(matchId, name){
     <div class="stack">
       <button class="btn btn-ghost" id="smReport" type="button">신고하기</button>
       <button class="btn btn-ghost" id="smBlock" type="button">차단하기</button>
-      <p class="hint" style="margin:0;text-align:center">상대에게는 알리지 않아요.</p>
+      <p class="hint" style="margin:0;text-align:center">상대에게는 매칭이 종료됐다고만 보이고, 누가 끝냈는지는 표시하지 않아요.</p>
     </div>`, w => {
     w.querySelector("#smReport").onclick = () => openReport(matchId, name);
     w.querySelector("#smBlock").onclick = () => openBlock(matchId, name);
@@ -2066,7 +2206,8 @@ function openDeleteAccount(){
   openSheet("회원 탈퇴", `
     <div class="stack">
       <ul class="doc-list">
-        <li>프로필, 사진, 인증 사진, 매칭 기록, 후기가 모두 지워지고 되살릴 수 없어요.</li>
+        <li>프로필, 사진, 매칭 기록, 후기가 모두 지워지고 되살릴 수 없어요.</li>
+        <li>재가입 악용을 막기 위해 이메일과 탈퇴 당시 상태는 1년 동안 보관해요. 오늘 이어진 상대가 있다면 그 대화는 상대의 신고를 위해 30일 동안 보관해요.</li>
         <li>오늘 이어진 상대가 있다면 매칭이 끝나요.</li>
         <li>신고 기록은 안전을 위해 1년 보관한 뒤 지워요.</li>
         <li>같은 이메일로 다시 가입할 수 있지만, 인증부터 새로 받아야 해요.</li>
@@ -2194,14 +2335,17 @@ const EXTRAS = [
   { key:"dates", label:"좋아하는 데이트", max:3, opts:["맛집","카페","전시","공연","산책","여행","집데이트","액티비티"] },
   { key:"traits", label:"성격 키워드", max:3, opts:["다정한","유머러스한","차분한","활발한","솔직한","섬세한","엉뚱한","진지한","따뜻한","털털한","배려심 깊은","긍정적인","호기심 많은","낙천적인","꼼꼼한","즉흥적인","수줍은","리더십 있는"] },
   { key:"rhythm", label:"생활 리듬", max:1, opts:["아침형","저녁형","그때그때"] },
-  { key:"drink", label:"술", max:1, opts:["안 마셔요","가끔","자주","분위기만 좋아해요"] },
-  { key:"smoke", label:"담배", max:1, opts:["비흡연","전자담배","흡연","끊는 중"] },
+  { key:"drink", label:"음주", max:1, opts:["안 마셔요","가끔","자주","분위기만 좋아해요"] },
+  { key:"smoke", label:"흡연", max:1, opts:["비흡연","전자담배","흡연","끊는 중"] },
   { key:"pets", label:"반려동물", max:2, opts:["고양이와 살아요","강아지와 살아요","키우고 싶어요","알레르기 있어요","없어요"] },
   { key:"fashion", label:"패션 스타일", max:2, opts:["캐주얼","미니멀","스트릿","빈티지","스포티"] },
   { key:"job", label:"하는 일", max:1, opts:["학생","회사원","프리랜서","자영업","전문직","쉬는 중"] },
   { key:"out", label:"커밍아웃", max:1, opts:["벽장","오픈리","때에 따라 다름"] }
 ];
-const EXTRA_OPTIONAL = ["face", "body"];   // 나머지는 모두 필수
+const EXTRA_REQ = ["drink", "smoke", "dateStyle", "contact", "relation"];   // 필수 · '나의 스타일' 카드에서 골라요 (오늘의 조건 · 우선순위에도 써요)
+const EXTRA_OPTIONAL = EXTRAS.map(d => d.key).filter(k => !EXTRA_REQ.includes(k));   // 나머지는 모두 선택
+const EXTRA_BASIC = EXTRA_REQ;   // 상대 프로필 기본 정보에 함께 보여요
+const HEIGHT_LO = 140, HEIGHT_HI = 190;   // 원하는 키 범위 (이 끝까지 고르면 상관없음)   // 나머지는 모두 필수
 const EXTRA_RENAME = { dateStyle: { "집순이": "집", "밖순이": "밖" }, out: { "주변에 알려요": "오픈리", "친한 사람만 알아요": "때에 따라 다름", "아직이에요": "벽장" } };   // 예전에 고른 값도 새 이름으로 보여줘요
 function fixExtras(x){
   if(!x || typeof x !== "object" || Array.isArray(x)) return {};
@@ -2220,12 +2364,23 @@ function cleanExtras(x){
 function extrasSection(ex){
   ex = cleanExtras(ex);
   return `<section class="card stack extras-card" id="extras">
-    <div class="h-sec" style="margin:0"><h2>더 알려주고 싶은 나</h2><span class="count">얼굴상·체형 빼고 필수</span></div>
+    <div class="h-sec" style="margin:0"><h2>더 알려주고 싶은 나</h2><span class="count">모두 선택</span></div>
     <p class="extras-note">여기서 고른 내용은 매칭 상대의 프로필에만 보여요. <b>매칭에는 영향을 주지 않아요.</b></p>
-    ${EXTRAS.map(d => `<div class="field"><span class="label">${d.label}${EXTRA_OPTIONAL.includes(d.key) ? ` <em class="ex-opt">선택</em>` : ` <em class="ex-req">필수</em>`}${d.max > 1 ? ` <em class="ex-max">최대 ${d.max}개</em>` : ""}</span>
+    ${EXTRAS.filter(d => !EXTRA_BASIC.includes(d.key)).map(d => `<div class="field"><span class="label">${d.label}${EXTRA_OPTIONAL.includes(d.key) ? ` <em class="ex-opt">선택</em>` : ` <em class="ex-req">필수</em>`}${d.max > 1 ? ` <em class="ex-max">최대 ${d.max}개</em>` : ""}</span>
       <div class="chips" data-extra="${d.key}">${d.opts.map(o => `<button type="button" class="chip" aria-pressed="${(ex[d.key] || []).includes(o)}" data-opt="${esc(o)}">${esc(o)}</button>`).join("")}</div></div>`).join("")}
   </section>`;
 }
+function basicExtraFields(){ return ""; }   // v5.9: 음주·흡연은 '나의 스타일' 카드로 옮겼어요
+const extraByKey = k => EXTRAS.find(d => d.key === k);
+function styleSection(ex){
+  ex = cleanExtras(ex);
+  return `<section class="card stack" id="styleCard">
+    <div class="h-sec" style="margin:0"><h2>나의 스타일</h2><span class="count">모두 필수</span></div>
+    ${EXTRA_REQ.map(extraByKey).map(d => `<div class="field"><span class="label">${d.label} <em class="ex-req">필수</em>${d.max > 1 ? ` <em class="ex-max">최대 ${d.max}개</em>` : ""}</span>
+      <div class="chips" data-extra="${d.key}">${d.opts.map(o => `<button type="button" class="chip" aria-pressed="${(ex[d.key] || []).includes(o)}" data-opt="${esc(o)}">${esc(o)}</button>`).join("")}</div></div>`).join("")}
+  </section>`;
+}
+const basicKv = p => `${p.height ? `<dt>키</dt><dd>${esc(p.height)}cm</dd>` : ""}${EXTRA_BASIC.map(extraByKey).map(d => { const v = (cleanExtras(p.extras)[d.key] || []); return v.length ? `<dt>${d.label}</dt><dd>${v.map(esc).join(", ")}</dd>` : ""; }).join("")}`;
 function wireExtras(){
   draft.extras = cleanExtras(draft.extras);
   app.querySelectorAll("[data-extra]").forEach(box => box.onclick = e => {
@@ -2242,7 +2397,7 @@ function wireExtras(){
 }
 function extrasView(ex, mine){
   ex = cleanExtras(ex);
-  const rows = EXTRAS.filter(d => ex[d.key]);
+  const rows = EXTRAS.filter(d => ex[d.key] && !EXTRA_BASIC.includes(d.key));
   if(!rows.length) return mine ? `<p class="hint" style="margin:14px 0 0">'더 알려주고 싶은 나'를 채우면 상대가 나를 더 잘 알 수 있어요. 매칭에는 영향을 주지 않아요.</p>` : "";
   return `<div class="extras-view">
     <div class="label">더 알려주고 싶은 나</div>
@@ -2294,9 +2449,10 @@ function distOk(j, mine, other){
   if(mine && mine.region === "서울") return other.region === "서울" && !!zoneOf("서울", mine.gu) && zoneOf("서울", mine.gu) === zoneOf("서울", other.gu);
   return !!(mine && mine.region) && mine.region === other.region;
 }
+const distName = d => d === "구역 고르기" ? "지역 선택" : d;
 function distText(j){
   if(!j) return "무관";
-  return j.dist === "구역 고르기" ? (j.zones || []).join(", ") || "구역 고르기" : (j.dist || "무관");
+  return j.dist === "구역 고르기" ? (j.zones || []).join(", ") || "지역 선택" : (j.dist || "무관");
 }
 function distHint(d, u){
   const p = (u && u.profile) || {};
@@ -2305,7 +2461,7 @@ function distHint(d, u){
     return p.region ? `나처럼 ${p.region}에 사는 사람을 먼저 찾아요.` : "내 정보의 사는 곳과 가까운 사람을 먼저 찾아요.";
   }
   if(d === "서울 전체") return "서울에 사는 사람을 먼저 찾아요.";
-  if(d === "구역 고르기") return "고른 구역에 사는 사람을 먼저 찾아요. 여러 곳을 고를 수 있어요.";
+  if(d === "구역 고르기") return "고른 지역에 사는 사람을 먼저 찾아요. 여러 곳을 고를 수 있어요.";
   if(d === "무관") return "어디에 살든 상관없어요.";
   return "상대가 사는 곳을 얼마나 가까이 원하는지 골라 주세요.";
 }
@@ -2358,6 +2514,7 @@ const QUIZ = [
   { n: 19, q: "스킨십과 애정 표현의 속도는?", a: ["천천히 마음이 쌓인 뒤", "서로 자연스럽게 맞춰서", "감정이 있으면 빠르게도 괜찮다", "상대의 속도에 맞춘다"] }
 ];
 let quizAns = {}, quizI = 0, quizSaving = false;
+const quizSame = (a, b) => (a && b) ? QUIZ.filter(x => a[String(x.n)] && a[String(x.n)] === b[String(x.n)]).length : 0;   // 같은 답 개수 = 매칭 가산점
 const quizPayload = () => { const o = {}; QUIZ.forEach(x => { if(quizAns[x.n]) o[String(x.n)] = quizAns[x.n]; }); return o; };
 function renderQuiz(){
   const x = QUIZ[quizI], cur = quizAns[x.n] || 0;
@@ -2555,7 +2712,7 @@ function myCodeStats(){
   return { live, left: Math.max(0, MYLIMIT - live.length), joined: live.filter(c => c.used_at).length };
 }
 function inviteCard(u){
-  if(!u || u.status !== "approved" || !INVITE_ON || BETA) return "";   // 베타 동안은 관리자만 코드를 만들어요
+  if(!u || u.status !== "approved" || !INVITE_ON) return "";   // v5.11: 베타 기간에도 회원이 초대코드를 만들어요
   if((MYCODES === null || myCodesStale) && !myCodesBusy){
     myCodesBusy = true; myCodesStale = false;
     const before = JSON.stringify([MYCODES, MYLIMIT]);
@@ -2590,7 +2747,6 @@ async function openMyCodes(){
           ${c.used_at ? `<div class="code-used">${c.used_nick ? `<b>${esc(c.used_nick)}</b>님이 ` : ""}${fmt(c.used_at)}에 가입했어요</div>` : `
           <div class="code-acts">
             <button class="btn btn-primary sm" type="button" data-mshare="${c.code}">보내기</button>
-            <button class="btn btn-ghost sm" type="button" data-mcopy="${c.code}">복사</button>
             <button class="btn btn-ghost sm danger-text" type="button" data-mrevoke="${c.code}">취소</button>
           </div>`}
         </article>`).join("")}</div>`
@@ -2663,14 +2819,21 @@ function openSuspend(uid, name, after){
 }
 
 /* 1차에서 이어지지 않으면 13시 2차 전까지 오늘의 조건을 고칠 수 있어요 */
+/* 11시~13시: 1차 결과가 나온 뒤 2차 매칭 전 */
+function r2Window(){
+  const d = curDay(); if(d !== kstDate()) return false;
+  const h = kstHour(); if(h < JOIN_END_HOUR || h >= ROUND2_HOUR) return false;
+  const res = db.matches && db.matches[d]; return !!res && !res.run2At;
+}
+/* 아직 살아 있는 내 짝 (1차 상대를 둘 중 누군가 넘기면 빠져요) */
+function livePair(d, uid){
+  const r = db.matches && db.matches[d]; if(!r) return null;
+  const ps = r.pairs.filter(p => p.a === uid || p.b === uid);
+  return ps.find(p => p.round === 2) || ps.find(p => !(p.round === 1 && (p.closed || pairStatus(p) === "passed"))) || null;
+}
 function round2Editable(){
-  const u = me(); if(!u || u.status !== "approved") return false;
-  const d = curDay(), h = kstHour();
-  if(d !== kstDate()) return false;
-  if(h < JOIN_END_HOUR || h >= ROUND2_HOUR || u.joinDate !== d || !u.join) return false;
-  const res = db.matches && db.matches[d]; if(!res || res.run2At) return false;
-  if(res.pairs.some(p => p.a === u.id || p.b === u.id)) return false;
-  return res.unmatched.some(x => x.id === u.id && x.round === 1);
+  const u = me(); if(!u || u.status !== "approved" || !r2Window()) return false;
+  return !livePair(curDay(), u.id);
 }
 
 
@@ -2714,7 +2877,7 @@ function renderPreregs(root){
     root.innerHTML = `<section class="card stack">
       <div class="h-sec" style="margin:0"><h2>${BETA ? "베타 매칭일" : "출시일"}</h2><span class="count">${L ? launchLabel(L) + " 매칭" : "미정"}</span></div>
       <div class="field"><label for="prDate">매칭 날짜</label><input class="input" id="prDate" type="date" value="${esc(L)}"></div>
-      <label class="switch-row" for="prBeta"><span><b>베타 테스트</b><small>켜 두면 이날 하루만 매칭하고, 가입은 100명까지, 초대코드는 관리자만 만들어요</small></span>
+      <label class="switch-row" for="prBeta"><span><b>베타 테스트</b><small>켜 두면 이날 하루만 매칭하고, 가입은 500명까지 받아요</small></span>
         <span class="switch"><input type="checkbox" id="prBeta" ${BETA ? "checked" : ""}><i></i></span></label>
       <button class="btn btn-primary" id="prSave" type="button">저장하기</button>
       ${L ? `<ol class="beta-plan">${BETA
@@ -2968,36 +3131,40 @@ function tourSurveySeed(){
   });
 }
 const TOUR = [
+  { g: "가입", t: "처음 화면 · 홈 화면에 추가", d: "로그인하지 않은 사람이 처음 들어오면 홈 화면에 추가하는 방법부터 보여줘요. 기기에 맞는 방법이 먼저 열리고, '홈 화면에 추가했어요'를 누르면 로그인·가입으로 넘어가요. 홈 화면 아이콘으로 열었거나 이미 로그인한 사람에게는 안 보여요.", run: async () => { await testDo("go-login"); renderA2hs(); } },
   { g: "가입", t: "로그인", d: "이메일과 비밀번호로 로그인해요. 관리자는 아이디(admin)로 로그인해요.", run: async () => { await testDo("go-login"); } },
   { g: "가입", t: "초대코드 입력", d: "초대코드로만 가입해요. 받은 영문·숫자 6자리 코드를 넣어야 가입 화면이 열려요. 테스트 코드: K7QM2X", run: async () => { inviteCode = ""; inviteDraft = ""; await testDo("go-signup"); } },
   { g: "가입", t: "회원가입 · 약관 동의", d: "코드가 확인되면 이메일·비밀번호·여성 인증 사진을 올리고, 필수 약관 4개에 동의해요. 이메일 알림 받기는 선택이에요.", keep: true, run: async () => { inviteCode = "K7QM2X"; await testDo("go-signup"); tourScroll("#su-agree"); } },
   { g: "가입", t: "민감정보 동의 내용", d: "약관마다 '보기'를 누르면 자세한 내용이 열려요.", run: async () => { await testDo("go-signup"); openDoc("sensitive"); } },
   { g: "가입", t: "비밀번호 찾기", d: "가입한 이메일을 적어 관리자에게 요청하면, 임시 비밀번호를 이메일로 받아요.", run: async () => { await testDo("go-login"); const f = document.querySelector("#forgot"); if(f) f.click(); } },
   { g: "내 정보", t: "내 정보 입력 전 · 연애 가치관 테스트", d: "가입하고 처음 들어오면 내 정보 입력 전에 테스트가 나와요. 답을 고르면 바로 다음 질문으로 넘어가고, 10번째까지 고르면 내 정보 입력으로 가요. 답은 나중에 내 정보에서 바꿀 수 있어요.", run: async () => { await testDo("go-profile"); quizI = 0; quizAns = {}; renderQuiz(); } },
-  { g: "내 정보", t: "내 정보 입력 · 사진과 기본 정보", d: "대표 사진 1장과 추가 사진 3장을 올리고, 닉네임·나이·자기소개(필수, 100자)와 인스타그램(선택)을 적고, MBTI도 꼭 골라요.", run: async () => { await testDo("go-profile"); } },
-  { g: "내 정보", t: "내 정보 입력 · 더 알려주고 싶은 나", d: "MBTI, 연락 스타일 같은 취향이에요. 상대 프로필에만 보이고 매칭에는 영향을 주지 않아요.", keep: true, run: async () => { await testDo("go-profile"); tourScroll("#extras"); } },
+  { g: "내 정보", t: "내 정보 입력 · 사진과 기본 정보", d: "대표 사진 1장과 추가 사진 3장을 올리고, 닉네임·나이·키·자기소개(필수, 100자)와 인스타그램(선택)을 적고, 음주·흡연·데이트 스타일·연락 스타일·원하는 관계는 '나의 스타일'에서 꼭 골라요.", run: async () => { await testDo("go-profile"); } },
+  { g: "내 정보", t: "내 정보 입력 · 더 알려주고 싶은 나", d: "MBTI, 얼굴상 같은 취향이에요. 모두 선택이고, 상대 프로필에만 보이며 매칭에는 영향을 주지 않아요.", keep: true, run: async () => { await testDo("go-profile"); tourScroll("#extras"); } },
   { g: "홈", t: "승인 대기", d: "가입하면 관리자가 인증 사진을 확인할 때까지 기다려요.", run: async () => { const p = sb._.T.profiles.find(x => x.id === TEST_ME); p.status = "pending"; TEST.hour = 9; tourUnjoin(); await tourHome(); } },
   { g: "홈", t: "오늘 참여하기", d: "밤 12시부터 오전 11시까지 참여 버튼이 열려요.", run: async () => { TEST.hour = 9; tourUnjoin(); await tourHome(); } },
-  { g: "홈", t: "오늘의 조건 고르기", d: "원하는 헤어스타일·나이·페미니즘(지향·지양·무관)을 골라요. 만나는 곳은 홍대예요.", run: async () => { TEST.hour = 9; tourUnjoin(); await loadAll(); memberMode = true; go("join"); } },
-  { g: "홈", t: "오늘의 조건 · 매칭 우선순위", d: "페미니즘·헤어스타일·나이·거리·깁앤텍 궁합의 순서를 정해요. 1순위는 1차 매칭에서 꼭 맞춰 줘요.", run: async () => { TEST.hour = 9; tourUnjoin(); await loadAll(); memberMode = true; go("join"); setTimeout(() => { const c = document.getElementById("prioCard"); if(c) c.scrollIntoView({ block: "center" }); }, 60); } },
-  { g: "홈", t: "오늘의 조건 · 거리", d: "무관 · 가까운 곳 · 서울 전체 · 구역 고르기 중에 골라요. 서울은 5개 구역으로 나눴어요. 매칭에서는 취미 바로 앞 순위로 써요.", keep: true, run: async () => {
+  { g: "홈", t: "오늘의 조건 고르기", d: "원하는 헤어스타일·나이(20~50+)·키·페미니즘과 원하는 음주·흡연·데이트·연락 스타일·관계를 골라요. 만나는 곳은 홍대예요.", run: async () => { TEST.hour = 9; tourUnjoin(); await loadAll(); memberMode = true; go("join"); } },
+  { g: "홈", t: "오늘의 조건 · 매칭 우선순위", d: "거리·헤어스타일·음주·흡연·관심사·데이트 스타일·키·연락 스타일·원하는 관계의 순서를 정해요. 왼쪽 손잡이를 끌어 옮겨요. 페미니즘·나이·깁앤텍은 순위와 상관없이 꼭 맞아야 해요.", run: async () => { TEST.hour = 9; tourUnjoin(); await loadAll(); memberMode = true; go("join"); setTimeout(() => { const c = document.getElementById("prioCard"); if(c) c.scrollIntoView({ block: "center" }); }, 60); } },
+  { g: "홈", t: "오늘의 조건 · 거리", d: "무관 · 가까운 곳 · 서울 전체 · 지역 선택 중에 골라요. 베타테스트에서는 서울만 지원돼요.", keep: true, run: async () => {
       TEST.hour = 9; tourUnjoin(true); const j = sb._.T.joins.find(x => x.user_id === TEST_ME && x.date === kstDate()); if(j){ j.dist = "구역 고르기"; j.zones = ["서북권","도심권"]; }
       await loadAll(); memberMode = true; go("join"); tourScroll("#distCard"); } },
   { g: "홈", t: "참여 완료 · 결과 기다리기", d: "오전 11시에 서버가 자동으로 한 사람과 이어줘요(1차).", run: async () => { TEST.hour = 9; tourUnjoin(true); await tourHome(); } },
   { g: "매칭", t: "11시 · 오늘의 인연", d: "이어진 상대의 사진·자기소개·취향만 볼 수 있어요. 좋아요 또는 넘기기를 골라요.", run: async () => { await tourHome(); } },
-  { g: "매칭", t: "1차 미매칭 · 2차 기다리기", d: "11시 1차에서 이어지지 않으면 13시 2차 매칭을 기다려요. 2차는 페미니즘·헤어스타일 이상형이 서로 맞으면 나이 조건을 넓혀서 찾아요.", run: async () => { tourRound1Miss(); TEST.hour = 12; await tourHome(); } },
+  { g: "매칭", t: "1차 미매칭 · 2차 기다리기", d: "11시 1차에서 이어지지 않으면 13시 2차 매칭을 기다려요. 2차는 1순위가 안 맞아도 우선순위 점수로 찾아요.", run: async () => { tourRound1Miss(); TEST.hour = 12; await tourHome(); } },
   { g: "매칭", t: "13시 · 2차 매칭으로 이어짐", d: "2차로 이어진 인연에는 '2차 매칭' 표시가 붙어요. 그 뒤는 1차와 똑같아요.", run: async () => { tourRound2(); TEST.hour = 13; await tourHome(); } },
   { g: "매칭", t: "2차에서도 이어지지 않았을 때", d: "2차에서도 맞는 사람이 없으면 알려줘요.", run: async () => { tourRound1Miss(true); TEST.hour = 13; await tourHome(); } },
+  { g: "매칭", t: "1차에서 넘김 · 2차 기다리기", d: "11시~13시에 1차 인연을 넘기면 프로필이 사라지고 바로 2차 매칭 화면이 떠요. 넘겨진 상대도 2차에 참여해요.", run: async () => { TEST.hour = 12; tourResp("pass"); await tourHome(); } },
+  { g: "매칭", t: "1차 미참여 · 2차 참여하기", d: "1차에 참여하지 않았어도 11시~13시에 들어오면 2차 매칭에 참여할 수 있어요.", run: async () => {
+      tourUnjoin(); sb._.T.match_runs.push({ date: kstDate(), run_at: new Date().toISOString(), total: 2, run2_at: null, total2: null }); TEST.hour = 12; await tourHome(); } },
   { g: "매칭", t: "상대 프로필 · 더 알려주고 싶은 나", d: "상대가 고른 취향은 프로필 아래쪽에 보여요.", keep: true, run: async () => { await tourHome(); tourScroll(".extras-view"); } },
   { g: "매칭", t: "좋아요 보냄 · 기다리는 중", d: "상대도 좋아요를 누르면 채팅창이 생겨요.", run: async () => { tourResp("like"); await tourHome(); } },
   { g: "매칭", t: "매칭 완료 · 인스타 공개", d: "둘 다 좋아요면 인스타그램이 열리고 채팅을 쓸 수 있어요.", run: async () => { tourResp("like", "like"); await tourHome(); } },
-  { g: "매칭", t: "이어지지 않았을 때", d: "한 명이라도 넘기면 이번 인연은 끝나요. 누가 넘겼는지는 알 수 없어요.", run: async () => { tourResp("like", "pass"); await tourHome(); } },
+  { g: "매칭", t: "이어지지 않았을 때", d: "2차 매칭이 끝난 뒤 한 명이라도 넘기면 이번 인연은 끝나요. 누가 넘겼는지는 알 수 없어요.", run: async () => { TEST.hour = 14; tourResp("like", "pass"); await tourHome(); } },
   { g: "대화", t: "채팅창", d: "서로 좋아요가 된 두 사람만 밤 12시까지 대화할 수 있어요. 빠른 답장 버튼도 있어요.", run: async () => {
       await testDo("prep-chat"); const m = tourM();
       sb._.sendAs(TEST_BOT, m.id, "안녕하세요! 오늘 저녁 7시 어때요?"); sb._.sendAs(TEST_ME, m.id, "좋아요! 홍대입구역 9번 출구에서 볼까요?"); sb._.sendAs(TEST_BOT, m.id, "네 좋아요 :)"); } },
-  { g: "대화", t: "밤 12시 · 채팅창 종료", d: "밤 12시가 되면 대화는 모두 사라져요.", run: async () => { tourResp("like", "like"); TEST.hour = 24; await tourHome(); } },
+  { g: "대화", t: "밤 12시 · 채팅창 종료", d: "밤 12시가 되면 채팅창이 닫혀서 두 사람 모두 더 볼 수 없어요. 대화는 서버에 30일 보관한 뒤 지워요.", run: async () => { tourResp("like", "like"); TEST.hour = 24; await tourHome(); } },
   { g: "안전", t: "신고하기", d: "상대 프로필이나 대화방 깃발 버튼에서 신고해요. 대화 내용을 함께 보낼 수 있어요.", run: async () => { tourResp("like", "like"); await tourHome(); await testDo("go-report"); } },
-  { g: "안전", t: "차단하기", d: "차단하면 그날 매칭이 끝나고 다시는 이어지지 않아요. 상대에게는 알리지 않아요.", run: async () => { await tourHome(); await testDo("go-block"); } },
+  { g: "안전", t: "차단하기", d: "차단하면 그날 매칭이 끝나고 다시는 이어지지 않아요. 상대에게는 누가 끝냈는지 표시하지 않아요.", run: async () => { await tourHome(); await testDo("go-block"); } },
   { g: "안전", t: "차단한 뒤 화면", d: "차단한 사람과는 프로필·인스타·대화가 모두 닫혀요.", run: async () => { await sb.rpc("block_match", { m_id: tourM().id }); await tourHome(); } },
   { g: "기타", t: "베타 만족도 조사", d: "관리자가 띄우면 홈 맨 위에 카드가 떠요. 만남 여부, 좋은 점·불편한 점·개선할 점, 별점, 추천 점수를 골라요.", run: async () => { tourSurveyOpen(true); sb._.T.surveys = sb._.T.surveys.filter(x => x.user_id !== TEST_ME); await tourHome(); setTimeout(() => openSurvey(), 120); } },
   { g: "기타", t: "알림", d: "매칭 결과, 서로 좋아요, 승인 같은 소식이 종 모양 버튼에 모여요.", run: async () => { tourResp("like", "like"); await tourHome(); await testDo("go-noti"); } },
@@ -3183,7 +3350,18 @@ function readImage(file, max=720, q=.76){
     img.src = url;
   });
 }
-function kstNow(){ return new Date(Date.now() + 9*3600*1000); }
+let CLOCK_SKEW = 0, clockAt = 0;   // 서버 시각 - 기기 시각 (ms)
+async function syncClock(force){
+  if(!sb || TEST || (!force && Date.now() - clockAt < 10 * 60000)) return;
+  clockAt = Date.now();
+  try{
+    const t0 = Date.now(), ms = Number(await q(sb.rpc("server_ms"))), t1 = Date.now();
+    if(!ms || !isFinite(ms)) return;
+    const skew = ms - (t0 + t1) / 2;
+    CLOCK_SKEW = Math.abs(skew) < 2000 ? 0 : Math.round(skew);   // 2초 안쪽 차이는 무시해요
+  }catch(e){}
+}
+function kstNow(){ return new Date(Date.now() + CLOCK_SKEW + 9*3600*1000); }
 function kstDate(){ return kstNow().toISOString().slice(0,10); }
 function inWindow(){ if(betaDay()) return kstDate() < betaDay(); if(!(TEST && TEST.hour != null)){ const n = kstNow(); if(n.getUTCHours() === 0 && n.getUTCMinutes() === 0 && n.getUTCSeconds() < 5) return false; } return kstHour() < JOIN_END_HOUR; } // 참여 00:00 ~ 10:59, 11시 1차 · 13시 2차 매칭
 function igHandle(s){
@@ -3239,7 +3417,7 @@ function startView(){
 /* 서버가 11시·13시에 매칭하고 밤 12시에 대화를 지워요. 화면은 1분마다 새 소식을 확인해요. */
 let lastOpen = null, lastClosed = null;
 setInterval(() => {
-  if(!READY || !MY) return;
+  if(!READY || !MY || document.hidden) return;
   const o = inWindow(), c = chatClosed();
   if(view === "chat"){ if(c) render(); else { const r = $("#cRemain"); if(r) r.textContent = chatEndLabel() + "까지 · " + remainText() + " 남음"; } }
   const phase = (lastOpen !== null && o !== lastOpen) || (lastClosed !== null && c !== lastClosed);
@@ -3279,7 +3457,67 @@ function renderGate(){
 /* ===== auth ===== */
 let signupPhoto = null;
 let inviteTabSet = false;
+function inAppBrowser(){
+  const ua = (navigator.userAgent || "");
+  return /KAKAOTALK/i.test(ua) ? "카카오톡" : /Instagram/i.test(ua) ? "인스타그램" : /FBAN|FBAV|FB_IAB/i.test(ua) ? "페이스북" : /NAVER\(inapp/i.test(ua) ? "네이버 앱" : /Line\//i.test(ua) ? "라인" : /everytimeApp/i.test(ua) ? "에브리타임" : "";
+}
+/* 홈 화면에 추가 안내: 로그인 전에만, '추가했어요'를 누를 때까지 (앱으로 열었으면 건너뛰어요) */
+const A2HS_KEY = "knotty_a2hs_done";
+let a2hsDone = (() => { try{ return localStorage.getItem(A2HS_KEY) === "1"; }catch(e){ return false; } })();
+let a2hsTab = "";
+function isStandalone(){
+  try{ return !!(window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) || window.navigator.standalone === true; }catch(e){ return false; }
+}
+function needA2hs(){ return !a2hsDone && !TEST && !PW_RECOVERY && !isStandalone(); }
+function a2hsGuess(){
+  const ua = navigator.userAgent || "";
+  if(/Android/i.test(ua)) return "android";
+  if(/CriOS/i.test(ua)) return "ichrome";
+  return "isafari";
+}
+const A2HS_SHARE = `<svg viewBox="0 0 24 24" class="i" aria-hidden="true"><path d="M12 3v12M7.5 7.5 12 3l4.5 4.5M5 11v8.5A1.5 1.5 0 0 0 6.5 21h11a1.5 1.5 0 0 0 1.5-1.5V11" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const A2HS_PLUS = `<svg viewBox="0 0 24 24" class="i" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>`;
+const A2HS_DOTS = `<svg viewBox="0 0 24 24" class="i" aria-hidden="true"><circle cx="12" cy="5.5" r="1.7" fill="currentColor"/><circle cx="12" cy="12" r="1.7" fill="currentColor"/><circle cx="12" cy="18.5" r="1.7" fill="currentColor"/></svg>`;
+const A2HS_STEPS = {
+  isafari: { tab: "iPhone Safari", steps: [
+    [A2HS_SHARE, "화면 아래 가운데 <b>공유 버튼</b>을 눌러요", "네모에서 화살표가 위로 나가는 모양이에요. 버튼이 안 보이면 화면을 살짝 아래로 내려 주세요."],
+    [A2HS_PLUS, "메뉴를 위로 올려 <b>'홈 화면에 추가'</b>를 눌러요", "목록 아래쪽에 있어요."],
+    ["<b class='a2-k'>추가</b>", "오른쪽 위 <b>'추가'</b>를 누르면 끝이에요", "홈 화면에 생긴 knotty 아이콘으로 들어와 주세요."]] },
+  ichrome: { tab: "iPhone Chrome", steps: [
+    [A2HS_SHARE, "주소창 오른쪽의 <b>공유 버튼</b>을 눌러요", "네모에서 화살표가 위로 나가는 모양이에요."],
+    [A2HS_PLUS, "<b>'홈 화면에 추가'</b>를 눌러요", "안 보이면 목록을 아래로 내려 보세요."],
+    ["<b class='a2-k'>추가</b>", "<b>'추가'</b>를 누르면 끝이에요", "홈 화면에 생긴 knotty 아이콘으로 들어와 주세요."]] },
+  android: { tab: "Android", steps: [
+    [A2HS_DOTS, "오른쪽 위 <b>점 세 개</b>를 눌러요", "주소창 옆에 있어요."],
+    [A2HS_PLUS, "<b>'홈 화면에 추가'</b>를 눌러요", "'앱 설치'로 보일 수도 있어요."],
+    ["<b class='a2-k'>추가</b>", "<b>'추가'</b>를 누르면 끝이에요", "홈 화면에 생긴 knotty 아이콘으로 들어와 주세요."]] }
+};
+function renderA2hs(){
+  if(!a2hsTab) a2hsTab = a2hsGuess();
+  const cur = A2HS_STEPS[a2hsTab];
+  app.innerHTML = `
+  <section class="a2">
+    <div class="a2-top">
+      <div class="a2-icon" aria-hidden="true"><span>${LOGO_SVG}</span></div>
+      <p class="a2-kicker">시작하기 전에</p>
+      <h1 class="a2-title">knotty를 홈 화면에<br>추가해 주세요</h1>
+      <p class="a2-lead">앱처럼 한 번에 열리고, 로그인도 유지돼요. 매일 11시 매칭 결과를 놓치지 않으려면 꼭 추가해 주세요.</p>
+    </div>
+    <div class="a2-tabs" role="tablist">${Object.entries(A2HS_STEPS).map(([k, v]) => `<button type="button" role="tab" data-a2="${k}" aria-selected="${k === a2hsTab}">${v.tab}</button>`).join("")}</div>
+    <ol class="a2-steps">
+      ${cur.steps.map(([ic, t, s], i) => `<li><span class="a2-n">${i + 1}</span><span class="a2-ic">${ic}</span><div><b class="a2-t">${t}</b><small>${s}</small></div></li>`).join("")}
+    </ol>
+    ${inAppBrowser() ? `<p class="a2-warn">지금은 ${esc(inAppBrowser())} 안에서 열려 있어요. 먼저 Safari나 Chrome으로 열어 주세요. <button type="button" class="linkish" id="a2Copy">주소 복사하기</button></p>` : ""}
+    <div class="a2-foot">
+      <button class="btn btn-primary" id="a2Done" type="button">홈 화면에 추가했어요</button>
+    </div>
+  </section>`;
+  app.querySelectorAll("[data-a2]").forEach(b => b.onclick = () => { a2hsTab = b.dataset.a2; renderA2hs(); });
+  $("#a2Done").onclick = () => { a2hsDone = true; try{ localStorage.setItem(A2HS_KEY, "1"); }catch(e){} window.scrollTo(0, 0); renderAuth(); };
+  const cp = $("#a2Copy"); if(cp) cp.onclick = () => { try{ navigator.clipboard.writeText(location.href).then(() => toast("주소를 복사했어요. Safari나 Chrome에 붙여 넣어 주세요."), () => toast("주소창의 주소를 길게 눌러 복사해 주세요.")); }catch(e){ toast("주소창의 주소를 길게 눌러 복사해 주세요."); } };
+}
 function renderAuth(){
+  if(needA2hs()) return renderA2hs();
   if(!inviteTabSet){ inviteTabSet = true; if(INVITE_FROM_URL) authTab = "signup"; }
   app.innerHTML = `
   <header class="auth-hero">
@@ -3288,6 +3526,9 @@ function renderAuth(){
     <p>내 이상형을 오늘 바로 만나보세요!</p>
   </header>
   ${preregBanner()}
+  ${inAppBrowser() ? `<section class="card inapp-note"><b>${esc(inAppBrowser())} 안에서 열렸어요</b>
+    <p>여기서는 사진 올리기나 로그인 유지가 잘 안 될 수 있어요. Safari나 Chrome으로 열어 주세요.</p>
+    <button class="btn btn-ghost sm" id="copyUrl" type="button">주소 복사하기</button></section>` : ""}
   <section class="card auth-card">
     <div class="seg" role="tablist">
       <button type="button" role="tab" data-tab="login" aria-pressed="${authTab==='login'}">로그인</button>
@@ -3310,6 +3551,7 @@ function renderAuth(){
       ${INVITE_ON && inviteCode ? `<div class="invite-ok"><span>초대코드 <b>${esc(inviteCode)}</b> 확인됐어요</span></div>` : ""}
       <div class="field"><label for="su-id">이메일</label>
         <input class="input" id="su-id" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" placeholder="name@example.com">
+        <span class="hint">이메일 형식(예: name@gmail.com)으로 입력해야 가입할 수 있어요.</span>
         <span class="hint">로그인할 때 쓰고, 이메일로 채팅·매칭 알림이 가요. 다른 회원에게는 보이지 않아요.</span>
       </div>
       <div class="field"><label for="su-pw">비밀번호</label>
@@ -3324,7 +3566,7 @@ function renderAuth(){
           <div class="thumb" id="su-thumb">${signupPhoto?`<img src="${signupPhoto}" alt="">`:ICON.cam}</div>
           <div class="txt">
             <strong id="su-photo-t">${signupPhoto?'사진이 첨부됐어요':'사진 1장 올리기'}</strong>
-            <span>성별 정보만 보이는 민증 사진을 등록해 주세요. 주민번호 뒷자리는 가려 주세요.</span>
+            <span>성별과 나이(생년월일)가 보이는 신분증 옆에 <b>'knotty'와 지금 시각</b>을 적은 포스트잇을 함께 놓고 찍어 주세요. 주민번호 뒷자리는 첫 숫자만 남기고 가려 주세요. 사진은 확인 뒤 30일 동안만 보관해요.</span>
             <span>관리자만 확인해요. 승인돼야 매칭에 참여할 수 있어요.</span>
           </div>
         </label>
@@ -3339,6 +3581,8 @@ function renderAuth(){
   <p class="foot-note legal-links"><button type="button" data-doc="terms">이용약관</button> · <button type="button" data-doc="policy">개인정보 처리방침</button></p>`;
 
   app.querySelectorAll("[data-tab]").forEach(b => b.onclick = () => { authTab = b.dataset.tab; render(); });
+  { const cu = $("#copyUrl"); if(cu) cu.onclick = () => { const v = location.href;
+      try{ navigator.clipboard.writeText(v).then(() => toast("주소를 복사했어요. Safari나 Chrome에 붙여 넣어 주세요."), () => toast("주소창의 주소를 길게 눌러 복사해 주세요.")); }catch(e){ toast("주소창의 주소를 길게 눌러 복사해 주세요."); } }; }
   wireConsent(app); wireInvite();
 
   $("#su-photo").onchange = async e => {
@@ -3372,7 +3616,7 @@ function renderAuth(){
     e.preventDefault();
     const id = $("#su-id").value.trim().toLowerCase(), pw = $("#su-pw").value, pw2 = $("#su-pw2").value;
     const err = $("#su-err");
-    if(!EMAIL_RE.test(id)){ err.textContent = "이메일 주소를 다시 확인해 주세요."; return; }
+    if(!EMAIL_RE.test(id)){ err.textContent = "이메일 형식이 아니에요. name@gmail.com처럼 입력해 주세요."; return; }
     if(!PW_RE.test(pw)){ err.textContent = PW_RULE; return; }
     if(pw !== pw2){ err.textContent = "비밀번호가 서로 달라요."; return; }
     if(!signupPhoto){ err.textContent = "여성 인증 사진을 1장 올려 주세요."; return; }
@@ -3443,12 +3687,13 @@ function renderPwChange(){
 
 /* ===== profile form ===== */
 let draft = null;
+const ageLocked = () => { const u = me(); return !!(u && u.profile && u.profile.age); };   // 서버도 한 번 저장된 나이는 바꾸지 않아요
 function renderProfile(){
   { const u0 = me(); if(u0 && !u0.profile && !u0.quizDone) return renderQuiz(); }
   const u = me(); if(!u){ go("auth"); return; }
   const p = u.profile;
   draft = Object.assign(
-    { nickname:"", age:"", instagram:"", bio:"", extras:{}, photos:[null,null,null,null], likes:[], give:"", hair:"", talco:"", feminism:"", region:"", gu:"", work:"", workGu:"" },
+    { nickname:"", age:"", height:"", instagram:"", bio:"", extras:{}, photos:[null,null,null,null], likes:[], give:"", hair:"", talco:"", feminism:"", region:"", gu:"", work:"", workGu:"" },
     p ? JSON.parse(JSON.stringify(p)) : {}
   );
   const editing = !!p;
@@ -3491,11 +3736,15 @@ function renderProfile(){
         <div class="field"><label for="nick">닉네임</label>
           <input class="input" id="nick" maxlength="10" placeholder="2~10자" value="${esc(draft.nickname)}"></div>
         <div class="field"><label for="age">나이</label>
-          <input class="input" id="age" inputmode="numeric" maxlength="2" placeholder="만 나이" value="${esc(draft.age)}"></div>
+          <input class="input" id="age" inputmode="numeric" maxlength="2" placeholder="만 나이" value="${esc(draft.age)}" ${ageLocked() ? "disabled aria-describedby=\"ageHint\"" : ""}></div>
       </div>
+      <p class="hint" id="ageHint" style="margin:-4px 0 0">${ageLocked() ? "나이는 처음 입력한 뒤에는 바꿀 수 없어요. 잘못 입력했다면 관리자에게 문의해 주세요." : "나이는 한 번 저장하면 바꿀 수 없어요. 정확히 입력해 주세요."}</p>
+      <div class="field"><label for="height">키 (필수)</label>
+        <div class="unit-input"><input class="input" id="height" inputmode="numeric" maxlength="3" placeholder="예) 163" value="${esc(draft.height)}"><span>cm</span></div></div>
+
       <div class="field"><label for="insta">인스타그램 (선택)</label>
         <div class="ig-input"><span>@</span><input class="input" id="insta" autocapitalize="off" autocomplete="off" spellcheck="false" maxlength="60" placeholder="아이디 또는 프로필 주소" value="${esc(draft.instagram)}"></div>
-        <span class="hint">매칭되면 채팅창이 생기지만, 밤 12시가 되면 영원히 사라져요. 인연을 이어가고 싶다면 인스타로 연락해요. 서로 좋아요를 누른 상대에게만 보여요.</span>
+        <span class="hint">서로 좋아요를 누른 상대에게만 공개돼요.</span>
       </div>
       <div class="field"><label for="bio">자기소개 (필수)</label>
         <textarea class="input area bio-input" id="bio" maxlength="100" placeholder="예) 고양이를 좋아하고, 연락 잘 돼요.">${esc(draft.bio || "")}</textarea>
@@ -3529,11 +3778,12 @@ function renderProfile(){
     </section>
 
     <section class="card">
-      <div class="h-sec"><h2>좋아하는 것</h2><span class="count" id="likeCount"><b>${draft.likes.length}</b> / ${MAX_LIKES}</span></div>
+      <div class="h-sec"><h2>관심사 <em class="ex-req">3개 이상</em></h2><span class="count" id="likeCount"><b>${draft.likes.length}</b> / ${MAX_LIKES}</span></div>
       <div class="chips" id="likes">
         ${LIKES.map(l => `<button type="button" class="chip" aria-pressed="${draft.likes.includes(l)}" data-like="${esc(l)}">${esc(l)}</button>`).join("")}
       </div>
     </section>
+    ${styleSection(draft.extras)}
     ${extrasSection(draft.extras)}
   </form>
   <div class="save-bar"><button class="btn btn-primary" id="pSave" type="button">${editing ? "저장하기" : "저장하고 시작하기"}</button></div>`;
@@ -3588,6 +3838,7 @@ function renderProfile(){
   });
 
   $("#age").oninput = e => { e.target.value = e.target.value.replace(/\D/g,""); };
+  $("#height").oninput = e => { e.target.value = e.target.value.replace(/\D/g,"").slice(0, 3); };
   $("#region").onchange = e => {
     draft.region = e.target.value;
     $("#guField").hidden = draft.region !== "서울";
@@ -3601,6 +3852,7 @@ function renderProfile(){
   $("#pSave").onclick = async () => {
     draft.nickname = $("#nick").value.trim();
     draft.age = $("#age").value.trim();
+    draft.height = $("#height").value.trim();
     draft.instagram = igHandle($("#insta").value);
     draft.bio = $("#bio").value.replace(/\s+/g, " ").trim().slice(0, 100);
     const age = parseInt(draft.age, 10);
@@ -3610,17 +3862,18 @@ function renderProfile(){
     if(draft.nickname.length < 2) return fail("닉네임을 2자 이상 입력해 주세요.");
     if(draft.bio.length < 2) return fail("자기소개를 한두 줄 적어 주세요.");
     if(!age) return fail("나이를 입력해 주세요.");
+    { const h = parseInt(draft.height, 10); if(!(h >= 130 && h <= 200)) return fail("키를 cm로 입력해 주세요. (130~200)"); }
     if(age < 19) return fail("만 19세 이상만 이용할 수 있어요.");
     if(age > 70) return fail("나이를 다시 확인해 주세요.");
     if(draft.instagram && !IG_RE.test(draft.instagram)) return fail("인스타그램 아이디를 다시 확인해 주세요. 영문·숫자·마침표·밑줄만 쓸 수 있어요.");
-    if(!draft.likes.length) return fail("좋아하는 것을 1개 이상 골라 주세요.");
+    if(draft.likes.length < 3){ const lc = $("#likeCount"); if(lc && lc.scrollIntoView) lc.scrollIntoView({ block: "center", behavior: "smooth" }); return fail("관심사를 3개 이상 골라 주세요."); }
     if(!draft.give) return fail("깁앤텍을 골라 주세요.");
     if(!draft.hair) return fail("헤어스타일을 골라 주세요.");
     if(!draft.feminism) return fail("페미니즘을 골라 주세요.");
     if(!draft.region) return fail("사는 곳을 골라 주세요.");
-    { const miss = EXTRAS.find(d => !EXTRA_OPTIONAL.includes(d.key) && !((draft.extras || {})[d.key] || []).length);
+    { const miss = EXTRA_REQ.map(extraByKey).find(d => !((draft.extras || {})[d.key] || []).length);
       if(miss){ const mb = app.querySelector(`[data-extra="${miss.key}"]`), mf = mb && mb.closest(".field"); if(mf && mf.scrollIntoView) mf.scrollIntoView({ block: "center", behavior: "smooth" });
-        return fail(miss.key === "mbti" ? "MBTI를 골라 주세요. 모르면 '잘 모르겠어요'를 골라도 돼요." : `${miss.label}을(를) 골라 주세요.`); } }
+        return fail(`${miss.label}${josa(miss.label)} 골라 주세요.`); } }
     if(draft.region === "서울" && !draft.gu) return fail("서울은 구까지 골라 주세요.");
     draft.age = age;
     const btn = $("#pSave"); btn.disabled = true; btn.textContent = "저장하는 중…";
@@ -3629,7 +3882,7 @@ function renderProfile(){
       for(let i = 0; i < 4; i++){
         if(String(draft.photos[i] || "").startsWith("data:")){ await uploadImage("photos", `${MY}/p${i}.jpg`, draft.photos[i]); changed = true; }
       }
-      const row = { has_profile: true, nickname: draft.nickname, age, likes: draft.likes, give: draft.give, hair: draft.hair, talco: null,
+      const row = { has_profile: true, nickname: draft.nickname, age, height: parseInt(draft.height, 10), likes: draft.likes, give: draft.give, hair: draft.hair, talco: null,
         feminism: draft.feminism, region: draft.region, gu: draft.gu || null, work: draft.work || null, work_gu: draft.workGu || null, bio: draft.bio || null, extras: cleanExtras(draft.extras) };
       if(changed) row.photo_ver = (u.photoVer || 0) + 1;
       await q(sb.from("profiles").update(row).eq("id", MY));
@@ -3670,19 +3923,34 @@ function renderHome(){
   const approved = u.status === "approved";
   const joined = u.joinDate === today && !!u.join;
   const res = db.matches && db.matches[today];
-  let partner = null, myUnmatched = null, closedPair = null;
+  let partner = null, myUnmatched = null, closedPair = null, r2Wait = "";
+  const leftRow = (db.leftMatches || []).find(x => x.date === today) || null;
+  const leftBanner = !leftRow ? "" : `<section class="card left-note">
+      <b>${esc(leftRow.name)}님이 탈퇴했어요</b>
+      <p>이어졌던 상대가 탈퇴해서 이번 매칭은 종료됐어요.${leftRow.reported ? "" : " 불쾌한 일이 있었다면 지금도 신고할 수 있어요."}</p>
+      ${leftRow.reported ? `<span class="hint">신고를 접수했어요. 관리자가 확인할게요.</span>` : `<button class="btn btn-ghost sm" id="leftReport" type="button">신고하기</button>`}
+    </section>`;
   if(!open && joined && res){
-    const pr = res.pairs.find(x => x.a === u.id || x.b === u.id);
-    if(pr && pr.closed) closedPair = pr;
+    const pr = findPair(today, u.id), um = res.unmatched.find(x => x.id === u.id);
+    const deadR1 = pr && pr.round === 1 && !pr.closed && pairStatus(pr) === "passed";
+    const closedR1 = pr && pr.round === 1 && pr.closed;
+    if(closedR1 && um && um.round === 2) myUnmatched = um;           // 정지·차단으로 끝난 뒤 2차에서도 못 이어짐
+    else if(closedR1 && r2Window()) r2Wait = "closed";               // 정지·차단으로 끝났어요 → 2차 기다리기
+    else if(pr && pr.closed) closedPair = pr;
+    else if(deadR1 && um && um.round === 2) myUnmatched = um;        // 넘긴 뒤 2차에서도 못 이어짐
+    else if(deadR1 && r2Window()) r2Wait = "passed";                 // 1차 상대를 넘겼어요 → 2차 기다리기
     else if(pr) partner = db.users[pr.a === u.id ? pr.b : pr.a] || null;
-    else myUnmatched = res.unmatched.find(x => x.id === u.id) || { reason:"" };
+    else if(um) myUnmatched = um;
+    else if(r2Window()) r2Wait = "new";                              // 1차 뒤에 새로 참여했어요
+    else myUnmatched = null;
   }
 
   let joinState, joinTitle, joinText;
   if(u.status==="suspended"){ joinState="locked"; joinTitle = u.suspendedUntil ? "이용이 잠시 정지됐어요" : "이용이 영구 정지된 계정이에요"; joinText = u.suspendedUntil ? `신고가 접수돼 ${suspendDate(u.suspendedUntil)}까지 매칭에 참여할 수 없어요. 그 뒤 자동으로 풀려요.` : "신고가 접수돼 매칭에 참여할 수 없어요. 관리자에게 문의해 주세요."; }
-  else if(joined && open){ joinState="done"; joinTitle = betaDay() ? "매칭에 참여했어요" : "오늘 매칭에 참여했어요"; joinText = betaDay() ? `${launchLabel(betaDay())} 오전 11시에 완벽한 이상형과 이어드려요. 1차에서 못 만나면 오후 1시에 한 번 더 찾아봐요.` : "오전 11시에 참여가 마감되면 완벽한 이상형과 이어드려요. 1차에서 못 만나면 오후 1시에 한 번 더 찾아봐요."; }
+  else if(joined && open){ joinState="done"; joinTitle = betaDay() ? "매칭에 참여했어요" : "오늘 매칭에 참여했어요"; joinText = `${betaDay() ? launchLabel(betaDay()) + " " : ""}오전 11시에 완벽한 이상형이 매칭돼요. 만약 1차 매칭에서 이어지지 않으면, 2차 매칭을 진행할 수 있어요.`; }
   else if(u.status==="suspended"){ joinState="locked"; joinTitle = u.suspendedUntil ? "이용이 잠시 정지됐어요" : "이용이 영구 정지된 계정이에요"; joinText = u.suspendedUntil ? `신고가 접수돼 ${suspendDate(u.suspendedUntil)}까지 매칭에 참여할 수 없어요. 그 뒤 자동으로 풀려요.` : "신고가 접수돼 매칭에 참여할 수 없어요. 관리자에게 문의해 주세요."; }
   else if(!approved){ joinState="locked"; joinTitle="인증이 끝나면 참여할 수 있어요"; joinText = u.status==="rejected" ? "인증 사진이 반려됐어요. 관리자에게 문의해 주세요." : "관리자가 인증 사진을 확인하고 있어요. 그동안 내 정보를 입력해 주세요."; }
+  else if(!open && !joined && round2Editable()){ joinState="open"; joinTitle="2차 매칭에 참여할까요?"; joinText = "오후 1시 2차 매칭에 참여할 수 있어요. 버튼을 누르고 조건을 고르면 참여가 끝나요."; }
   else if(!open){ joinState="locked"; joinTitle = betaDay() ? "베타 테스트 참여 기간이 끝났어요" : "오늘 참여 시간이 끝났어요"; joinText = betaDay() ? "정식 출시 때 다시 만나요." : ""; }
   else { joinState="open"; joinTitle="매칭에 참여할까요?"; joinText = betaDay() ? `버튼을 누르고 ${launchLabel(addDay(betaDay(), 1))}에 만나고 싶은 이상형을 고르면 참여가 끝나요.` : "버튼을 누르고 오늘 만나고 싶은 조건을 고르면 참여가 끝나요."; }
 
@@ -3697,9 +3965,12 @@ function renderHome(){
       <div class="tags" style="margin-top:8px">${j.places.map(x=>`<span>${esc(x)}</span>`).join("")}</div>
       <dl class="kv">
         <dt>이상형 헤어스타일</dt><dd>${esc(j.hair.join(", "))}</dd>
-        <dt>나이대</dt><dd style="font-variant-numeric:tabular-nums">${j.ageMin}–${j.ageMax}세</dd>
+        <dt>원하는 깁앤텍</dt><dd>${esc((j.wantGive && j.wantGive.length ? j.wantGive : ["-"]).join(", "))}</dd>
+        <dt>나이대</dt><dd style="font-variant-numeric:tabular-nums">${ageLabel(j.ageMin, j.ageMax)}</dd>
+        <dt>원하는 키</dt><dd style="font-variant-numeric:tabular-nums">${(j.heightMin ?? HEIGHT_LO) <= HEIGHT_LO && (j.heightMax ?? HEIGHT_HI) >= HEIGHT_HI ? "상관없음" : `${j.heightMin}–${j.heightMax}cm`}</dd>
         <dt>페미니즘</dt><dd>${esc(j.feminism)}</dd>
         <dt>거리</dt><dd>${esc(distText(j))}</dd>
+        ${WANTS.map(([k, , lb]) => `<dt>원하는 ${lb}</dt><dd>${esc((j.wants && j.wants[k] || ["상관없음"]).join(", "))}</dd>`).join("")}
         ${j.useThread ? `<dt>우선 매칭</dt><dd>실타래 사용</dd>` : ""}
       </dl>
     </section>` : "";
@@ -3748,11 +4019,22 @@ function renderHome(){
       <p class="hint" style="margin:8px 0 0">오후 1시 전까지 바꿀 수 있어요</p>` : ""}
     </section>`;
     }
+  } else if(r2Wait){
+    bigText = "2차 매칭 대기";
+    main = `
+    <section class="card join round2-wait">
+      <div class="join-btn" aria-hidden="true" style="background:var(--surface-3);box-shadow:none;color:var(--muted)">${ICON.moon.replace('class="i"','class="i" style="width:34px;height:34px"')}</div>
+      <h3>${r2Wait === "passed" ? "1차 인연은 여기까지예요" : r2Wait === "closed" ? "이번 매칭이 종료됐어요" : "2차 매칭에 참여했어요"}</h3>
+      <p>${r2Wait !== "new" ? "2차 매칭에 자동으로 참여해요. 다시 한번 이상형을 찾아볼게요." : "조건이 맞는 사람을 찾아 오후 1시에 이어드려요."}</p>
+      <div class="window">${ICON.moon}<span>2차 매칭 <b>13:00</b></span></div>
+      ${round2Editable() ? `<button class="btn btn-ghost" id="r2Edit" type="button" style="margin-top:16px">2차 조건 수정하기</button>
+      <p class="hint" style="margin:8px 0 0">오후 1시 전까지 바꿀 수 있어요</p>` : ""}
+    </section>`;
   } else if(joined && !open){
     bigText = "매칭 중";
     main = `<section class="card join"><h3>매칭 결과를 준비하고 있어요</h3><p>잠시 뒤 다시 열어 주세요.</p></section>`;
   } else {
-    bigText = u.status === "suspended" ? "이용 정지" : joined ? "참여 완료" : approved ? (open ? "참여 가능" : "참여 마감") : u.status === "suspended" ? "이용 정지" : "승인 대기";
+    bigText = u.status === "suspended" ? "이용 정지" : joined ? "참여 완료" : approved ? (open ? "참여 가능" : joinState === "open" ? "2차 참여 가능" : "참여 마감") : u.status === "suspended" ? "이용 정지" : "승인 대기";
     main = joinCard + todayCard;
   }
 
@@ -3762,11 +4044,7 @@ function renderHome(){
       <div class="big">${bigText}</div>
       <div style="margin-top:10px;display:flex;gap:6px;justify-content:center;flex-wrap:wrap">${statusPill(u.status)}${threadChip(u)}</div>
     </section>
-    ${main}
-    ${u.status === "suspended" ? "" : `<section class="card wine notice" style="margin-top:14px">
-      <div class="ic">${ICON.shield}</div>
-      <div><strong>매칭된 상대의 프로필만 보여요</strong><span>다른 참여자의 정보와 인증 사진은 서로 볼 수 없어요.</span></div>
-    </section>`}`
+    ${leftBanner}${main}`
   : `
     <section class="card" style="margin-top:18px">
       <div class="me">
@@ -3777,6 +4055,7 @@ function renderHome(){
       <div class="mini-photos">${p.photos.slice(1).map(x=>`<div style="background-image:url(&quot;${x}&quot;)"></div>`).join("")}</div>
       <div style="margin-top:14px">${p.instagram ? igLink(p.instagram) : `<span class="hint">인스타그램을 적어 두면 밤 12시에 채팅창이 사라진 뒤에도 연락할 수 있어요.</span>`}</div>
       <dl class="kv">
+        ${basicKv(p)}
         <dt>깁앤텍</dt><dd>${esc(p.give)}</dd>
         <dt>헤어스타일</dt><dd>${esc(p.hair)}</dd>
         <dt>페미니즘</dt><dd>${esc(p.feminism || "-")}</dd>
@@ -3806,16 +4085,17 @@ function renderHome(){
     }
     app.querySelectorAll("[data-resp]").forEach(x => x.disabled = true);
     const ok = await respond(today, u.id, b.dataset.resp);
-    if(ok) toast(b.dataset.resp === "like" ? "좋아요를 보냈어요." : "이번 인연을 넘겼어요.");
+    if(ok) toast(b.dataset.resp === "like" ? "좋아요를 보냈어요." : round2Editable() ? "이번 인연을 넘겼어요. 2차 매칭에 참여해요." : "이번 인연을 넘겼어요.");
     render();
   });
   app.querySelectorAll("[data-review]").forEach(b => b.onclick = () => openReview(u, b.dataset.review, b.dataset.to));
   const oc = $("#openChat"); if(oc) oc.onclick = () => go("chat");
   app.querySelectorAll("[data-nav]").forEach(b => b.onclick = () => { homeTab = b.dataset.nav; render(); window.scrollTo(0,0); });
   const jb = $("#joinBtn");
-  if(jb) jb.onclick = () => { if(approved && inWindow()) go("join"); };
+  if(jb) jb.onclick = () => { if(approved && (inWindow() || round2Editable())) go("join"); };
   const ej = $("#editJoin"); if(ej) ej.onclick = () => go("join");
   const r2 = $("#r2Edit"); if(r2) r2.onclick = () => go("join");
+  const lrp = $("#leftReport"); if(lrp) lrp.onclick = () => openLeftReport(leftRow);
   const eb = $("#editBtn"); if(eb) eb.onclick = () => go("profile");
   const qe = $("#quizEdit"); if(qe) qe.onclick = () => openQuizEdit();
   wireSafety(app); wireSettings(); wireInviteCard();
@@ -3845,13 +4125,15 @@ function partnerCard(u, o){
       ? `<div class="decide"><b>채팅창이 사라졌어요</b></div>`
       : `<div class="decide ok"><b>인연을 찾았어요</b><span>${inBetaMatch() ? `채팅창에서 ${launchLabel(addDay(betaDay(), 1))} 오후 6시에 만날 장소를 정해 보세요.` : "채팅창에서 오늘 저녁 만날 시간과 장소를 정해 보세요."}</span></div>`
       + (`<button class="btn btn-primary" id="openChat" type="button" style="margin-top:12px">채팅창 열기${unread ? ` <i class="chat-badge">${unread}</i>` : ""}</button>
-           <p class="hint" style="margin:8px 0 0;text-align:center">${remainText()} 뒤, ${chatEndLabel()}에 대화가 모두 사라져요</p>`)
+           <p class="hint" style="margin:8px 0 0;text-align:center">${remainText()} 뒤, ${chatEndLabel()}에 채팅창이 닫혀요</p>`)
       + ((db.ig[curDay()] || {})[o.id] ? igLink(db.ig[curDay()][o.id], true) : `<div class="ig-empty">상대가 인스타그램을 적지 않았어요. 채팅창에서 연락해 보세요.</div>`);
   } else if(st === "passed"){
     decide = `<div class="decide no"><b>${mine === "pass" ? "이번 인연을 넘겼어요" : "이번 인연은 이어지지 않았어요"}</b></div>`;
   } else if(mine === "like"){
     decide = `<div class="decide wait"><b>좋아요를 보냈어요</b><span>상대도 좋아요를 누르면 채팅창이 생겨요.</span></div>
-      <div class="ig-locked">${ICON.ig}<span>서로 좋아요를 누르면 공개돼요</span></div>`;
+      <div class="ig-locked">${ICON.ig}<span>서로 좋아요를 누르면 공개돼요</span></div>
+      ${pr.round === 1 && r2Window() ? `<div class="wait-out"><p class="hint" style="margin:0">13시 전까지 답이 없으면 넘기고 2차 매칭에 참여할 수 있어요.</p>
+        <button class="btn btn-ghost sm" type="button" data-resp="pass" data-switch="1">넘기고 2차 매칭 참여하기</button></div>` : ""}`;
   } else {
     decide = `<div class="decide"><b>이 인연, 이어볼까요?</b><span>둘 다 좋아요를 누르면 채팅창이 생겨요.</span>
       <div class="admin-actions" style="margin-top:12px">
@@ -3860,6 +4142,7 @@ function partnerCard(u, o){
       </div></div>`;
   }
   return `
+  <p class="no-capture">${ICON.shield}<span>상대의 사진·프로필·대화를 캡처하거나 밖으로 퍼뜨리면 <b>영구 정지</b>돼요.</span></p>
   <section class="card partner">
     ${pr0.round === 2 ? `<div class="round-chip">2차 매칭 · 조건을 넓혀 이어졌어요</div>` : ""}
     <div class="pair-mini">
@@ -3879,14 +4162,15 @@ function partnerCard(u, o){
       <div><span class="label">함께 만날 수 있는 곳</span><div class="tags">${places.map(x=>`<span class="hot">${esc(x)}</span>`).join("")}</div></div>
     </div>
     <dl class="kv">
+      ${basicKv(p)}
       <dt>깁앤텍</dt><dd>${esc(p.give)}</dd>
       <dt>헤어스타일</dt><dd>${esc(p.hair)}</dd>
       <dt>페미니즘</dt><dd>${esc(p.feminism || "-")}</dd>
     </dl>
-    <div class="label" style="margin-top:16px">좋아하는 것</div>
+    <div class="label" style="margin-top:16px">관심사</div>
     ${(() => { const co = p.likes.filter(l => shared.has(l)), ot = p.likes.filter(l => !shared.has(l));
       return `<div class="likes-split">${co.length ? `<div class="ls-row"><span class="ls-k">공통</span><div class="tags plain">${co.map(l => `<span>${esc(l)}</span>`).join("")}</div></div>` : ""}
-        ${ot.length ? `<div class="ls-row"><span class="ls-k">${co.length ? "그 외" : "상대가 좋아하는 것"}</span><div class="tags plain">${ot.map(l => `<span>${esc(l)}</span>`).join("")}</div></div>` : ""}</div>`; })()}
+        ${ot.length ? `<div class="ls-row"><span class="ls-k">${co.length ? "그 외" : "상대가 관심사"}</span><div class="tags plain">${ot.map(l => `<span>${esc(l)}</span>`).join("")}</div></div>` : ""}</div>`; })()}
     ${extrasView(p.extras)}
     ${pr ? `<div class="safety-links"><button type="button" class="text-btn" data-report="${pr.id}" data-name="${esc(p.nickname)}">신고하기</button><span aria-hidden="true">·</span><button type="button" class="text-btn" data-block="${pr.id}" data-name="${esc(p.nickname)}">차단하기</button></div>` : ""}
   </section>`;
@@ -4033,6 +4317,9 @@ function renderJoin(){
     ageMin: prev.ageMin ?? 22, ageMax: prev.ageMax ?? 32,
     feminism: prev.feminism === "상관없음" ? "무관" : (prev.feminism || ""),
     dist: prev.dist || "", zones: prev.zones ? [...prev.zones] : [], useThread: !!prev.useThread && u.threads > 0,
+    heightMin: prev.heightMin ?? HEIGHT_LO, heightMax: prev.heightMax ?? HEIGHT_HI,
+    wantGive: (prev.wantGive && prev.wantGive.length) ? prev.wantGive.slice() : [],
+    wants: Object.fromEntries(WANTS.map(([k]) => [k, (prev.wants && prev.wants[k] && prev.wants[k].length) ? prev.wants[k].slice() : ["상관없음"]])),
     prio: prioOf(prev).slice()
   };
   const seg3 = (group, opts) => `<div class="seg" data-jgroup="${group}">${opts.map(o=>`<button type="button" data-val="${o}" aria-pressed="${jd[group]===o}">${o}</button>`).join("")}</div>`;
@@ -4042,14 +4329,14 @@ function renderJoin(){
     <button class="icon-btn" id="jBack" type="button" aria-label="뒤로">${ICON.back}</button>
     <h1>오늘의 조건</h1><span></span>
   </header>
-  <div class="intro"><h2>${betaDay() ? `${launchLabel(addDay(betaDay(), 1))}, 어떤 사람을 만나고 싶나요?` : MEET_PLACES.length === 1 ? "오늘 어떤 사람을 만나고 싶나요?" : "오늘 누구를, 어디서 만나고 싶나요?"}</h2><p>${r2mode ? "2차는 1순위가 안 맞아도 우선순위 점수로 한 번 더 찾아요. 오후 1시 전까지 바꿀 수 있어요." : `조건이 맞는 한 사람과 이어드려요. ${LAUNCH_DATE && LAUNCH_DATE > kstDate() ? launchLabel(LAUNCH_DATE) + " " : ""}오전 11시에 매칭돼요.`}</p></div>
+  <div class="intro"><h2>${betaDay() ? `${launchLabel(addDay(betaDay(), 1))}, 어떤 사람을 만나고 싶나요?` : MEET_PLACES.length === 1 ? "오늘 어떤 사람을 만나고 싶나요?" : "오늘 누구를, 어디서 만나고 싶나요?"}</h2><p>${r2mode ? "2차는 1순위가 안 맞아도 우선순위 점수로 찾아요. 오후 1시 전까지 고를 수 있어요." : `조건이 맞는 한 사람과 이어드려요. ${LAUNCH_DATE && LAUNCH_DATE > kstDate() ? launchLabel(LAUNCH_DATE) + " " : ""}오전 11시에 매칭돼요.`}</p></div>
 
   <div class="stack">
     ${MEET_PLACES.length === 1 ? `
     <section class="card place-fixed">
       <div class="h-sec" style="margin:0 0 6px"><h2>만나는 장소</h2></div>
       <div class="place-pin"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.6-6-11a6 6 0 0 1 12 0c0 5.4-6 11-6 11z"/><circle cx="12" cy="10" r="2.3"/></svg><b>${esc(MEET_PLACES[0])}</b></div>
-      <p class="hint" style="margin:8px 0 0">지금은 ${esc(MEET_PLACES[0])}에서만 만나요. 이어진 두 사람이 채팅창에서 가게를 정해요.</p>
+      <p class="hint" style="margin:8px 0 0">베타테스트에서는 ${esc(MEET_PLACES[0])}에서만 만나요. 이어진 두 사람이 채팅창에서 장소를 정해요.</p>
     </section>` : `
     <section class="card">
       <div class="h-sec"><h2>만나고 싶은 장소</h2><span class="count" id="placeCount"><b>${jd.places.length}</b> / ${MAX_PLACES}</span></div>
@@ -4062,26 +4349,48 @@ function renderJoin(){
 
     <section class="card stack">
       <div class="h-sec" style="margin:0"><h2>이상형</h2></div>
+      <div class="field"><span class="label">원하는 깁앤텍 <em class="ex-req">필수</em> · 여러 개 선택 가능</span>
+        <div class="chips big-chips" id="wantGive">
+          ${["깁앤텍", "온깁", "온텍", "상관없음"].map(g => `<button type="button" class="chip" data-give="${g}" aria-pressed="${jd.wantGive.includes(g)}">${g}</button>`).join("")}
+        </div>
+      </div>
       <div class="field"><span class="label">헤어스타일 · 여러 개 선택 가능</span>
         <div class="chips big-chips" id="idealHair">
           ${[...HAIR, "상관없음"].map(h=>`<button type="button" class="chip" data-hair="${h}" aria-pressed="${jd.hair.includes(h)}">${h}</button>`).join("")}
         </div>
       </div>
       <div class="field">
-        <div class="h-sec" style="margin:0"><span class="label">나이대</span><span class="age-read" id="ageRead">${jd.ageMin}–${jd.ageMax}세</span></div>
+        <div class="h-sec" style="margin:0"><span class="label">나이대</span><span class="age-read" id="ageRead">${ageLabel(jd.ageMin, jd.ageMax)}</span></div>
         <div class="range" id="ageRange">
           <div class="track"></div><div class="fill" id="ageFill"></div>
           <input type="range" id="ageMinR" min="${AGE_LO}" max="${AGE_HI}" step="1" value="${jd.ageMin}" aria-label="최소 나이">
           <input type="range" id="ageMaxR" min="${AGE_LO}" max="${AGE_HI}" step="1" value="${jd.ageMax}" aria-label="최대 나이">
         </div>
-        <div class="range-scale"><span>${AGE_LO}</span><span>25</span><span>30</span><span>35</span><span>${AGE_HI}</span></div>
+        <div class="range-scale"><span>${AGE_LO}</span><span>30</span><span>40</span><span>50+</span></div>
+      </div>
+      <div class="field">
+        <div class="h-sec" style="margin:0"><span class="label">원하는 키</span><span class="age-read" id="hRead"></span></div>
+        <div class="range" id="hRange">
+          <div class="track"></div><div class="fill" id="hFill"></div>
+          <input type="range" id="hMinR" min="${HEIGHT_LO}" max="${HEIGHT_HI}" step="1" value="${jd.heightMin}" aria-label="최소 키">
+          <input type="range" id="hMaxR" min="${HEIGHT_LO}" max="${HEIGHT_HI}" step="1" value="${jd.heightMax}" aria-label="최대 키">
+        </div>
+        <div class="range-scale"><span>${HEIGHT_LO}</span><span>150</span><span>160</span><span>170</span><span>180</span><span>${HEIGHT_HI}</span></div>
+        <span class="hint">양 끝까지 두면 '상관없음'이에요.</span>
       </div>
       <div class="field"><span class="label">페미니즘</span>${seg3("feminism", ["지향","지양","무관"])}</div>
     </section>
 
+    <section class="card stack" id="wantCard">
+      <div class="h-sec" style="margin:0"><h2>원하는 스타일</h2><span class="count">여러 개 선택 가능</span></div>
+      ${WANTS.map(([k, ek, lb]) => `<div class="field"><span class="label">${lb}</span>
+        <div class="chips" data-want="${k}">${["상관없음", ...extraByKey(ek).opts].map(o => `<button type="button" class="chip" data-opt="${esc(o)}" aria-pressed="${jd.wants[k].includes(o)}">${esc(o)}</button>`).join("")}</div></div>`).join("")}
+    </section>
+
     <section class="card stack" id="distCard">
       <div class="h-sec" style="margin:0"><h2>거리</h2><span class="count">상대가 사는 곳</span></div>
-      <div class="seg dist-seg" data-jgroup="dist">${DIST.map(o=>`<button type="button" data-val="${o}" aria-pressed="${jd.dist===o}">${o}</button>`).join("")}</div>
+      <div class="seg dist-seg" data-jgroup="dist">${DIST.map(o=>`<button type="button" data-val="${o}" aria-pressed="${jd.dist===o}">${distName(o)}</button>`).join("")}</div>
+      <p class="hint" style="margin:0">베타테스트에서는 서울만 지원돼요.</p>
       <div class="zone-grid" id="zones" ${jd.dist==="구역 고르기"?"":"hidden"}>
         ${SEOUL_ZONES.map(z=>`<button type="button" class="zone-chip" data-zone="${z.k}" aria-pressed="${jd.zones.includes(z.k)}"><b>${z.k}</b><span class="zone-spot">${z.spot}</span><small>${z.gu.map(g=>g.length > 2 ? g.replace(/구$/,"") : g).join(" · ")}</small></button>`).join("")}
       </div>
@@ -4089,11 +4398,10 @@ function renderJoin(){
     </section>
 
     <section class="card stack" id="prioCard">
-      <div class="h-sec" style="margin:0"><h2>매칭 우선순위</h2><span class="count">끌어서 순서를 바꿔요</span></div>
-      <p class="hint" style="margin:0">1순위는 1차 매칭에서 꼭 맞춰 드려요. 2차에서는 1순위가 안 맞아도 점수가 높은 사람과 이어질 수 있어요.</p>
+      <div class="h-sec" style="margin:0"><h2>매칭 우선순위</h2></div>
       <ol class="prio-pick" id="prioList"></ol>
       <div class="never-rules"><b>순위와 상관없이 이어지지 않아요</b>
-        <ul><li>만날 수 있는 장소가 하나도 겹치지 않을 때</li><li>페미니즘 '지향'과 '지양'</li><li>내가 차단한 사람</li><li>최근 14일 안에 만난 사람</li></ul></div>
+        <ul><li>페미니즘 조건이 서로 맞지 않을 때</li><li>나이대가 서로 맞지 않을 때</li><li>원하는 깁앤텍이 서로 맞지 않을 때</li></ul></div>
     </section>
     ${threadJoinCard(u, jd)}
   </div>
@@ -4125,6 +4433,18 @@ function renderJoin(){
     seg.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", String(x===b)));
   });
 
+  $("#wantGive").onclick = e => {
+    const b = e.target.closest("[data-give]"); if(!b) return;
+    const v = b.dataset.give, on = jd.wantGive.includes(v);
+    jd.wantGive = on ? jd.wantGive.filter(x => x !== v) : [...jd.wantGive, v].slice(0, 4);   // 최대 4개
+    $("#wantGive").querySelectorAll("[data-give]").forEach(x => x.setAttribute("aria-pressed", String(jd.wantGive.includes(x.dataset.give))));
+  };
+  app.querySelectorAll("[data-want]").forEach(box => box.onclick = e => {
+    const b = e.target.closest("[data-opt]"); if(!b) return;
+    const k = box.dataset.want, v = b.dataset.opt, cur = jd.wants[k], on = cur.includes(v);
+    jd.wants[k] = v === "상관없음" ? (on ? [] : ["상관없음"]) : (on ? cur.filter(x => x !== v) : [...cur.filter(x => x !== "상관없음"), v]);
+    box.querySelectorAll("[data-opt]").forEach(x => x.setAttribute("aria-pressed", String(jd.wants[k].includes(x.dataset.opt))));
+  });
   $('[data-jgroup="dist"]').addEventListener("click", () => setTimeout(() => {
     $("#zones").hidden = jd.dist !== "구역 고르기";
     $("#distHint").textContent = distHint(jd.dist, u);
@@ -4143,18 +4463,27 @@ function renderJoin(){
     const f = $("#ageFill");
     f.style.left = `calc(14px + (100% - 28px) * ${a})`;
     f.style.width = `calc((100% - 28px) * ${b - a})`;
-    $("#ageRead").textContent = jd.ageMin === jd.ageMax ? `${jd.ageMin}세` : `${jd.ageMin}–${jd.ageMax}세`;
+    $("#ageRead").textContent = ageLabel(jd.ageMin, jd.ageMax);
     rMin.style.zIndex = jd.ageMin >= AGE_HI - 1 ? 3 : 2;
   };
+  const hMin = $("#hMinR"), hMax = $("#hMaxR");
+  const hText = () => jd.heightMin <= HEIGHT_LO && jd.heightMax >= HEIGHT_HI ? "상관없음" : `${jd.heightMin <= HEIGHT_LO ? "" : jd.heightMin + "cm"}~${jd.heightMax >= HEIGHT_HI ? "" : jd.heightMax + "cm"}`.replace(/^~/, "~").replace(/~$/, " 이상");
+  const hPaint = () => {
+    const span = HEIGHT_HI - HEIGHT_LO, a = (jd.heightMin - HEIGHT_LO) / span, b = (jd.heightMax - HEIGHT_LO) / span, f = $("#hFill");
+    f.style.left = `calc(14px + (100% - 28px) * ${a})`; f.style.width = `calc((100% - 28px) * ${b - a})`;
+    $("#hRead").textContent = hText(); hMin.style.zIndex = jd.heightMin >= HEIGHT_HI - 1 ? 3 : 2;
+  };
+  hMin.oninput = () => { jd.heightMin = Math.min(+hMin.value, jd.heightMax); hMin.value = jd.heightMin; hPaint(); };
+  hMax.oninput = () => { jd.heightMax = Math.max(+hMax.value, jd.heightMin); hMax.value = jd.heightMax; hPaint(); };
+  hPaint();
   rMin.oninput = () => { jd.ageMin = Math.min(+rMin.value, jd.ageMax); rMin.value = jd.ageMin; paint(); };
   rMax.oninput = () => { jd.ageMax = Math.max(+rMax.value, jd.ageMin); rMax.value = jd.ageMax; paint(); };
   paint();
 
   const jt = $("#jThread"); if(jt) jt.onchange = () => { jd.useThread = jt.checked; };
   const drawPrio = (focusKey) => {
-    $("#prioList").innerHTML = jd.prio.map((k, i) => `<li data-prio="${k}" tabindex="0" aria-label="${i + 1}순위 ${PRIO_LABEL[k]}. 위아래 화살표 키로 옮겨요"><span class="pr-n">${i + 1}</span>
-      <span class="pr-t"><b>${PRIO_LABEL[k]}</b><small>${PRIO_HINT[k]}</small></span>
-      <span class="pr-grip" aria-hidden="true">${ICON.grip}</span></li>`).join("");
+    $("#prioList").innerHTML = jd.prio.map((k, i) => `<li data-prio="${k}" tabindex="0" aria-label="${i + 1}순위 ${PRIO_LABEL[k]}. 오른쪽 손잡이를 끌거나 위아래 화살표 키로 옮겨요"><span class="pr-n">${i + 1}</span>
+      <span class="pr-t"><b>${PRIO_LABEL[k]}</b></span><span class="pr-grip" aria-hidden="true">${ICON.grip}</span></li>`).join("");
     if(focusKey){ const f = $("#prioList").querySelector(`[data-prio="${focusKey}"]`); if(f) f.focus(); }
   };
   drawPrio();
@@ -4166,7 +4495,7 @@ function renderJoin(){
     if(moveTo(k, jd.prio.indexOf(k) + (e.key === "ArrowUp" ? -1 : 1))) drawPrio(k);
   };
   pl.addEventListener("pointerdown", e => {
-    const li = e.target.closest("[data-prio]"); if(!li || (e.pointerType === "mouse" && e.button !== 0)) return;
+    const li = e.target.closest("[data-prio]"); if(!li || !e.target.closest(".pr-grip") || (e.pointerType === "mouse" && e.button !== 0)) return;
     e.preventDefault();
     const items = [...pl.children], from = items.indexOf(li), step = li.offsetHeight + 8, y0 = e.clientY;
     let to = from;
@@ -4189,14 +4518,16 @@ function renderJoin(){
   $("#jSave").onclick = async () => {
     if(!inWindow() && !round2Editable()){ toast(r2mode ? "2차 매칭이 시작돼서 더 바꿀 수 없어요." : "참여 시간이 끝났어요."); go("home"); return; }
     if(!jd.places.length) return toast("만나고 싶은 장소를 1곳 이상 골라 주세요.");
+    if(!jd.wantGive.length) return toast("원하는 깁앤텍을 1개 이상 골라 주세요.");
     if(!jd.hair.length) return toast("이상형 헤어스타일을 1개 이상 골라 주세요.");
     if(!jd.feminism) return toast("이상형의 페미니즘을 골라 주세요.");
     if(!jd.dist) return toast("거리 조건을 골라 주세요.");
-    if(jd.dist === "구역 고르기" && !jd.zones.length) return toast("구역을 1곳 이상 골라 주세요.");
+    if(jd.dist === "구역 고르기" && !jd.zones.length) return toast("지역을 1곳 이상 골라 주세요.");
+    { const miss = WANTS.find(([k]) => !jd.wants[k].length); if(miss) return toast(`원하는 ${miss[2]}${josa(miss[2])} 1개 이상 골라 주세요. 상관없다면 '상관없음'을 골라요.`); }
     const btn = $("#jSave"); btn.disabled = true;
     try{
       await q(sb.from("joins").upsert({ user_id: MY, date: curDay(), places: jd.places, acts: ACTS.slice(), hair: jd.hair,
-        age_min: jd.ageMin, age_max: jd.ageMax, feminism: jd.feminism, dist: jd.dist, zones: jd.dist === "구역 고르기" ? jd.zones : [], prio: jd.prio.slice(), use_thread: !!jd.useThread && u.threads > 0, joined_at: new Date().toISOString() }, { onConflict: "user_id,date" }));
+        age_min: jd.ageMin, age_max: jd.ageMax, height_min: jd.heightMin, height_max: jd.heightMax, feminism: jd.feminism, dist: jd.dist, zones: jd.dist === "구역 고르기" ? jd.zones : [], prio: jd.prio.slice(), want_give: jd.wantGive.slice(), ...Object.fromEntries(WANTS.map(([k]) => [k, jd.wants[k].slice()])), use_thread: !!jd.useThread && u.threads > 0, joined_at: new Date().toISOString() }, { onConflict: "user_id,date" }));
       await loadAll();
       toast(r2mode ? "2차 매칭 조건을 저장했어요." : editing ? "오늘의 조건을 저장했어요." : "오늘 매칭에 참여했어요.");
       homeTab = "home"; go("home");
@@ -4216,11 +4547,14 @@ function pairStatus(p){
   return "pending";
 }
 function findPair(date, uid){
-  const r = db.matches && db.matches[date];
-  return r ? r.pairs.find(p => p.a === uid || p.b === uid) : null;
+  const r = db.matches && db.matches[date]; if(!r) return null;
+  const ps = r.pairs.filter(p => p.a === uid || p.b === uid);
+  return ps.find(p => p.round === 2) || ps[0] || null;   // 2차 짝이 있으면 2차 짝
 }
 async function respond(date, uid, val){
-  const p = findPair(date, uid); if(!p || (p.resp && p.resp[uid])) return false;
+  const p = findPair(date, uid); if(!p) return false;
+  const mineNow = p.resp && p.resp[uid], other = p.resp && p.resp[p.a === uid ? p.b : p.a];
+  if(mineNow && !(mineNow === "like" && val === "pass" && !other)) return false;   // 좋아요 → 넘기기만, 상대가 답하기 전에
   try{ await q(sb.rpc("respond_match", { m_id: p.id, val })); }
   catch(e){ toast("저장하지 못했어요. 다시 시도해 주세요."); return false; }
   await loadAll();
@@ -4232,18 +4566,20 @@ async function respond(date, uid, val){
 }
 
 /* ===== matching ===== */
-/* 항상 지키는 규칙(어기면 후보 제외): 만날 장소 1곳 이상 겹침 · 페미니즘 지향↔지양 금지 · 차단 · 14일 안에 만난 사람
-   나머지 5가지(페미니즘·헤어스타일·나이·거리·깁앤텍 궁합)는 각자 정한 우선순위로 점수를 매겨요.
-   1순위 16점 · 2순위 8점 · 3순위 4점 · 4순위 2점 · 5순위 1점 → 1순위 하나가 나머지를 다 합친 것보다 커요.
+/* 절대 조건(어기면 후보 제외): 페미니즘 · 나이(50은 50세 이상) · 깁앤텍 궁합 — 서로 맞아야 해요.
+   함께 지키는 규칙: 만날 장소 겹침 · 페미니즘 지향↔지양 금지 · 차단 · 14일 안(오늘 포함)에 이어졌던 사이.
+   우선순위 9가지(거리·헤어스타일·음주·흡연·관심사·데이트 스타일·키·연락 스타일·원하는 관계)는 각자 정한 순서로 점수를 매겨요.
+   1순위 256점 · 2순위 128 · … · 9순위 1점 → 1순위 하나가 나머지를 다 합친 것보다 커요.
+   가산점: 연애 가치관 테스트에서 같은 답 1개당 1점 (최대 10점, 두 사람 점수에 똑같이 더해요).
    1차: 서로의 1순위가 꼭 맞아야 해요.  2차: 1순위가 안 맞아도 되지만 둘 다 1점 이상이어야 해요.
    짝 순서: 두 사람 중 낮은 점수가 높은 짝 → 합계가 높은 짝 (한쪽만 만족하는 짝보다 서로 고르게 만족하는 짝이 먼저) */
-const PRIO_KEYS = ["feminism", "hair", "age", "dist", "give"];
-const PRIO_LABEL = { feminism: "페미니즘", hair: "헤어스타일", age: "나이", dist: "거리", give: "깁앤텍 궁합" };
-const PRIO_HINT = { feminism: "상대가 내 페미니즘 이상형에 맞는지", hair: "상대 헤어스타일이 내 이상형인지", age: "상대가 내가 원하는 나이대인지",
-                    dist: "상대가 사는 곳이 내 거리 조건에 드는지", give: "깁앤텍↔깁앤텍, 온깁↔온텍" };
-const PRIO_DEFAULT = ["feminism", "hair", "age", "dist", "give"];
-const PRIO_W = [16, 8, 4, 2, 1];
-const prioOf = j => { const p = (j && j.prio) || []; return p.length === 5 && PRIO_KEYS.every(k => p.includes(k)) ? p : PRIO_DEFAULT; };
+const PRIO_KEYS = ["dist", "hair", "drink", "smoke", "likes", "dateStyle", "height", "contact", "relation"];
+const PRIO_LABEL = { dist: "거리", hair: "헤어스타일", drink: "음주", smoke: "흡연", likes: "관심사", dateStyle: "데이트 스타일", height: "키", contact: "연락 스타일", relation: "원하는 관계" };
+const PRIO_DEFAULT = PRIO_KEYS.slice();
+const PRIO_W = [256, 128, 64, 32, 16, 8, 4, 2, 1];
+const prioOf = j => { const p = ((j && j.prio) || []).slice();
+  return p.length === PRIO_KEYS.length && PRIO_KEYS.every(k => p.includes(k)) ? p : PRIO_DEFAULT.slice(); };
+const heightOk = (j, prof) => { const lo = j.heightMin ?? HEIGHT_LO, hi = j.heightMax ?? HEIGHT_HI; if(lo <= HEIGHT_LO && hi >= HEIGHT_HI) return true; const h = Number(prof.height) || 0; return !!h && h >= lo && h <= hi; };
 function giveOk(a, b){
   return (a==="깁앤텍" && b==="깁앤텍") || (a==="온깁" && b==="온텍") || (a==="온텍" && b==="온깁");
 }
@@ -4255,26 +4591,40 @@ function evalPair(A, B, round){
   const places = norm(ja.places).filter(x => norm(jb.places).includes(x));
   const acts = (ja.acts || []).filter(x => (jb.acts || []).includes(x));
   const hairOk = (ideal, h) => !!ideal && (ideal.includes("상관없음") || ideal.includes(h));
-  const g = giveOk(pa.give, pb.give);
+  const wantG = (j, v) => !j.wantGive || !j.wantGive.length ? null : (j.wantGive.includes("상관없음") || (!!v && j.wantGive.includes(v)));
+  const ga = wantG(ja, pb.give), gb = wantG(jb, pa.give);
+  const g = ga === null || gb === null ? giveOk(pa.give, pb.give) : (ga && gb);
   // metA: A가 정한 조건에 B가 맞는지 / metB: 그 반대
-  const metA = { feminism: prefOk(ja.feminism, pb.feminism), hair: hairOk(ja.hair, pb.hair), age: pb.age >= ja.ageMin && pb.age <= ja.ageMax, dist: !!distOk(ja, pa, pb), give: g };
-  const metB = { feminism: prefOk(jb.feminism, pa.feminism), hair: hairOk(jb.hair, pa.hair), age: pa.age >= jb.ageMin && pa.age <= jb.ageMax, dist: !!distOk(jb, pb, pa), give: g };
+  const exA = cleanExtras(pa.extras), exB = cleanExtras(pb.extras), wa = ja.wants || {}, wb = jb.wants || {};
+  const sharesLike = (pa.likes || []).some(x => (pb.likes || []).includes(x));
+  const metA = { dist: !!distOk(ja, pa, pb), hair: hairOk(ja.hair, pb.hair), drink: wantOk(wa.want_drink, exB.drink), smoke: wantOk(wa.want_smoke, exB.smoke), likes: sharesLike,
+    dateStyle: wantOk(wa.want_date, exB.dateStyle), height: heightOk(ja, pb), contact: wantOk(wa.want_contact, exB.contact), relation: wantOk(wa.want_relation, exB.relation) };
+  const metB = { dist: !!distOk(jb, pb, pa), hair: hairOk(jb.hair, pa.hair), drink: wantOk(wb.want_drink, exA.drink), smoke: wantOk(wb.want_smoke, exA.smoke), likes: sharesLike,
+    dateStyle: wantOk(wb.want_date, exA.dateStyle), height: heightOk(jb, pa), contact: wantOk(wb.want_contact, exA.contact), relation: wantOk(wb.want_relation, exA.relation) };
+  const absFem = prefOk(ja.feminism, pb.feminism) && prefOk(jb.feminism, pa.feminism), absAge = ageFits(ja, pb.age) && ageFits(jb, pa.age);
   const pA = prioOf(ja), pB = prioOf(jb);
-  const sA = pA.reduce((t, k, i) => t + (metA[k] ? PRIO_W[i] : 0), 0);
-  const sB = pB.reduce((t, k, i) => t + (metB[k] ? PRIO_W[i] : 0), 0);
+  const rA = pA.reduce((t, k, i) => t + (metA[k] ? PRIO_W[i] : 0), 0);   // 우선순위 점수
+  const rB = pB.reduce((t, k, i) => t + (metB[k] ? PRIO_W[i] : 0), 0);
+  const quiz = quizSame(A.quiz, B.quiz);                                   // 가치관 테스트 가산점 (같은 답 개수)
+  const sA = rA + quiz, sB = rB + quiz;
   const both = k => (metA[k] ? 1 : 0) + (metB[k] ? 1 : 0);
-  const age = both("age"), fem = both("feminism"), hair = both("hair"), dist = both("dist"), give = g ? 2 : 0;
+  const age = (ageFits(ja, pb.age) ? 1 : 0) + (ageFits(jb, pa.age) ? 1 : 0), fem = (prefOk(ja.feminism, pb.feminism) ? 1 : 0) + (prefOk(jb.feminism, pa.feminism) ? 1 : 0);
+  const hair = both("hair"), dist = both("dist"), give = g ? 2 : 0;
   const likes = pa.likes.filter(x => pb.likes.includes(x));
   let blocked = "";
   const testPair = TEST && (A.id === TEST_BOT || B.id === TEST_BOT);   // 테스트 상대는 조건과 상관없이 항상 이어져요
   if(testPair) blocked = "";
   else if(!places.length) blocked = "장소";
   else if(!femAny(pa.feminism) && !femAny(pb.feminism) && pa.feminism !== pb.feminism) blocked = "페미니즘";
+  else if(!absFem) blocked = "페미니즘";
+  else if(!absAge) blocked = "나이";
+  else if(!g) blocked = "깁앤텍";
   else if(round === 1 && !(metA[pA[0]] && metB[pB[0]])) blocked = "1순위";
-  else if(round === 2 && Math.min(sA, sB) === 0) blocked = "우선순위";
+  else if(round === 2 && Math.min(rA, rB) === 0) blocked = "우선순위";
   const priOf = X => X.pri !== undefined ? !!X.pri : !!(X.join && X.join.useThread && (X.threads || 0) > 0);
   const pri = (priOf(A) ? 1 : 0) + (priOf(B) ? 1 : 0);
-  return { places, acts, age, give, fem, hair, dist, likes, blocked, round, pri, sA, sB, pA, pB, metA, metB,
+  const height = both("height"), drink = both("drink"), smoke = both("smoke"), dateStyle = both("dateStyle"), contact = both("contact"), relation = both("relation");
+  return { places, acts, age, give, fem, hair, dist, height, drink, smoke, dateStyle, contact, relation, likes, blocked, round, pri, sA, sB, rA, rB, quiz, pA, pB, metA, metB,
     key: [places.length ? 1 : 0, pri, Math.min(sA, sB), sA + sB, likes.length, places.length] };
 }
 function cmpKey(a, b){ for(let i=0;i<a.length;i++){ if(a[i]!==b[i]) return a[i]-b[i]; } return 0; }
@@ -4290,12 +4640,11 @@ function renderAdmin(){
     <div class="wordmark">${LOGO_SVG}<span class="wm-sub">관리자</span></div>
     <div class="icon-pill"><button type="button" id="aOut" aria-label="회원 화면으로 보기">${ICON.user}</button>${TEST ? "" : `<button type="button" id="aLogout" aria-label="로그아웃">${ICON.out}</button>`}</div>
   </header>
-  ${TEST ? `<p class="hint" style="margin:6px 0 0;text-align:center">테스트 모드의 관리자 화면이에요. 왼쪽 '테스트' 버튼으로 패널을 열어요.</p>` : `<p class="hint" style="margin:6px 0 0;text-align:center">관리자 계정이라 관리자 화면이 보여요. 오른쪽 위 사람 모양 버튼은 내 회원 화면이에요.</p>
-  <button class="btn btn-ghost" id="testMode" type="button" style="margin-top:12px">모든 화면 테스트하기 (실제 데이터와 분리)</button>`}
+  ${TEST ? `<p class="hint" style="margin:6px 0 0;text-align:center">테스트 모드의 관리자 화면이에요. 왼쪽 '테스트' 버튼으로 패널을 열어요.</p>` : `<p class="hint" style="margin:6px 0 0;text-align:center">관리자 계정이라 관리자 화면이 보여요. 오른쪽 위 사람 모양 버튼은 내 회원 화면이에요.</p>`}
   <div class="seg admin-seg" style="margin:14px 0 12px">
     <button type="button" data-mode="members" aria-pressed="${adminMode==='members'}">회원 승인</button>
     <button type="button" data-mode="match" aria-pressed="${adminMode==='match'}">오늘 매칭</button>
-    <button type="button" data-mode="inbox" aria-pressed="${adminMode==='inbox'}">신고·요청${(db.pwReq||[]).some(r=>!r.done) || (db.reports||[]).some(r=>r.status==="open") ? ' <i class="badge"></i>' : ''}</button>
+    <button type="button" data-mode="inbox" aria-pressed="${adminMode==='inbox'}">신고·요청${(db.pwReq||[]).some(r=>!r.done) || (db.reports||[]).some(r=>r.status==="open") || (db.leftMembers||[]).some(x => x.rejoinedAs && db.users[x.rejoinedAs] && db.users[x.rejoinedAs].status === "pending") ? ' <i class="badge"></i>' : ''}</button>
     <button type="button" data-mode="codes" aria-pressed="${adminMode==='codes'}">초대코드</button>
     <button type="button" data-mode="prereg" aria-pressed="${adminMode==='prereg'}">출시일</button>
     <button type="button" data-mode="survey" aria-pressed="${adminMode==='survey'}">만족도</button>
@@ -4303,7 +4652,6 @@ function renderAdmin(){
   <div id="adminBody"></div>`;
   $("#aOut").onclick = async () => { memberMode = true; if(TEST) TEST.role = "member"; await refresh(); go(startView()); };
   const lo = $("#aLogout"); if(lo) lo.onclick = logout;
-  const tm = $("#testMode"); if(tm) tm.onclick = () => { location.hash = "test"; location.reload(); };
   app.querySelectorAll("[data-mode]").forEach(b => b.onclick = () => { adminMode = b.dataset.mode; render(); });
   if(adminMode === "members") renderMembers($("#adminBody"));
   else if(adminMode === "inbox") renderInbox($("#adminBody"));
@@ -4313,10 +4661,20 @@ function renderAdmin(){
   else renderMatchAdmin($("#adminBody"));
 }
 
+/* 인증 사진은 확인(승인·반려) 30일 뒤에 지워요. 관리자가 회원 목록을 열 때 정리해요 */
+const VERIFY_KEEP_MS = 30 * 864e5;
+const keepVerify = u => u.status === "pending" || (!!u.statusAt && Date.now() - u.statusAt < VERIFY_KEEP_MS);
+const purgedVerify = new Set();
+async function purgeVerify(ids, force){
+  ids = ids.filter(id => force || !purgedVerify.has(id)); if(!ids.length || !sb) return;
+  ids.forEach(id => { purgedVerify.add(id); verifyCache[id] = ""; if(db.users[id]) db.users[id].verifyPhoto = ""; });
+  try{ await sb.storage.from("verify").remove(ids.map(id => `${id}/v.jpg`)); }catch(x){}
+}
 function renderMembers(root){
   const all = Object.values(db.users).sort((a,b)=>b.createdAt-a.createdAt);
   const list = all.filter(u => u.status === adminTab);
-  list.forEach(u => loadVerify(u.id));
+  list.forEach(u => { if(keepVerify(u)) loadVerify(u.id); });
+  purgeVerify(all.filter(u => !keepVerify(u) && !u.sample).map(u => u.id));
   const n = s => all.filter(u=>u.status===s).length;
   root.innerHTML = `
   <div class="seg sub" style="margin-bottom:16px">
@@ -4329,7 +4687,8 @@ function renderMembers(root){
     ${list.length ? list.map(u => `
       <article class="card admin-item">
         <div class="admin-row">
-          <button class="ph" type="button" data-view="${esc(u.id)}" style="background-image:url(&quot;${u.verifyPhoto}&quot;)" aria-label="인증 사진 크게 보기"></button>
+          ${keepVerify(u) && u.verifyPhoto !== "" ? `<button class="ph" type="button" data-view="${esc(u.id)}" style="background-image:url(&quot;${u.verifyPhoto}&quot;)" aria-label="인증 사진 크게 보기"></button>`
+            : `<div class="ph ph-gone" title="확인 30일 뒤 인증 사진을 지웠어요">사진<br>삭제됨</div>`}
           <div>
             <strong>${esc(u.profile ? u.profile.nickname : "(정보 미입력)")}${u.sample ? ' <em class="sample-tag">예시</em>' : ''}</strong>
             ${flagChips(u.id)}
@@ -4354,6 +4713,7 @@ function renderMembers(root){
     b.disabled = true;
     try{ await q(sb.rpc("admin_set_status", { p_uid: u.id, p_status: b.dataset.act })); }
     catch(x){ b.disabled = false; return toast("바꾸지 못했어요. 다시 시도해 주세요."); }
+
     toast(b.dataset.act==="suspended" ? "이용을 정지했어요." : b.dataset.act==="approved" ? "승인했어요." : b.dataset.act==="rejected" ? "반려했어요." : "대기로 되돌렸어요.");
     await refresh();
   });
@@ -4394,14 +4754,18 @@ function pairCard(A, B, rank, round){
     <div class="pair">${personCell(A)}${THREAD("link")}${personCell(B)}</div>
     <ol class="crit">
       ${row(1, "장소", esc(e.places.join(", ")), stChip(2, [, ,`${e.places.length}곳 겹침`]))}
-      ${row(2, "페미니즘", `${esc(pa.feminism||"-")} ↔ ${esc(pb.feminism||"-")}`, stChip(e.fem))}
+      ${row("절대", "페미니즘", `${esc(pa.feminism||"-")} ↔ ${esc(pb.feminism||"-")}`, stChip(e.fem))}
+      ${row("절대", "나이", `${pa.age}세 ↔ ${pb.age}세`, stChip(e.age))}
+      ${row("절대", "깁앤텍", `${esc(pa.give)} ↔ ${esc(pb.give)}<br><small>원함: ${esc((A.join.wantGive || []).join(", ") || "-")} / ${esc((B.join.wantGive || []).join(", ") || "-")}</small>`, stChip(e.give, ["안 맞음", "", "맞음"]))}
+      ${row(2, "거리", `${esc(zoneLabel(pa))} ↔ ${esc(zoneLabel(pb))}`, stChip(e.dist))}
       ${row(3, "헤어스타일", `${esc(pa.hair)} ↔ ${esc(pb.hair)}`, stChip(e.hair))}
-      ${row(4, "나이", `${pa.age}세 ↔ ${pb.age}세`, stChip(e.age))}
-      ${row(5, "거리", `${esc(zoneLabel(pa))} ↔ ${esc(zoneLabel(pb))}`, stChip(e.dist))}
-      ${row(6, "깁앤텍", `${esc(pa.give)} ↔ ${esc(pb.give)}`, stChip(e.give, ["안 맞음", "", "맞음"]))}
-      ${row(7, "취미", e.likes.length ? esc(e.likes.join(", ")) : "겹치는 취미 없음", stChip(e.likes.length ? (e.likes.length >= 2 ? 2 : 1) : 0, ["0개", `${e.likes.length}개`, `${e.likes.length}개`]))}
+      ${(() => { const ea = cleanExtras(pa.extras), eb = cleanExtras(pb.extras), v = (x, k) => esc((x[k] || ["-"]).join(", "));
+        return [["drink", "음주"], ["smoke", "흡연"], ["dateStyle", "데이트 스타일"], ["contact", "연락 스타일"], ["relation", "원하는 관계"]].map(([k, lb], i) => row(4 + i, lb, `${v(ea, k)} ↔ ${v(eb, k)}`, stChip(e[k]))).join(""); })()}
+      ${row(9, "키", `${pa.height ? esc(pa.height) + "cm" : "-"} ↔ ${pb.height ? esc(pb.height) + "cm" : "-"}`, stChip(e.height))}
+      ${row(10, "관심사", e.likes.length ? esc(e.likes.join(", ")) : "겹치는 관심사 없음", stChip(e.likes.length ? 2 : 0, ["0개", `${e.likes.length}개`, `${e.likes.length}개`]))}
+      ${row(11, "가치관 테스트", `같은 답 ${e.quiz}개`, stChip(e.quiz >= 7 ? 2 : e.quiz >= 4 ? 1 : 0, [`+${e.quiz}점`, `+${e.quiz}점`, `+${e.quiz}점`]))}
     </ol>
-    <p class="prio-score"><span><b>${esc(pa.nickname)}</b> 기준 ${e.sA}점 · 1순위 ${PRIO_LABEL[e.pA[0]]} ${e.metA[e.pA[0]] ? "맞음" : "안 맞음"}</span><span><b>${esc(pb.nickname)}</b> 기준 ${e.sB}점 · 1순위 ${PRIO_LABEL[e.pB[0]]} ${e.metB[e.pB[0]] ? "맞음" : "안 맞음"}</span></p>
+    <p class="prio-score"><span>가치관 테스트 같은 답 ${e.quiz}개 · 두 사람 모두 +${e.quiz}점</span><span><b>${esc(pa.nickname)}</b> 기준 ${e.sA}점 · 1순위 ${PRIO_LABEL[e.pA[0]]} ${e.metA[e.pA[0]] ? "맞음" : "안 맞음"}</span><span><b>${esc(pb.nickname)}</b> 기준 ${e.sB}점 · 1순위 ${PRIO_LABEL[e.pB[0]]} ${e.metB[e.pB[0]] ? "맞음" : "안 맞음"}</span></p>
     </div>
   </details>`;
 }
@@ -4427,23 +4791,24 @@ function renderMatchAdmin(root){
     </div>
     <div class="admin-actions">
       <button class="btn ${res ? "btn-ghost" : "btn-primary"}" id="runMatch" type="button" ${ps.length < 2 ? "disabled" : ""}>${res ? "1차 다시 실행" : "1차 실행"}</button>
-      <button class="btn ${res && !res.run2At ? "btn-primary" : "btn-ghost"}" id="runMatch2" type="button" ${!res || !unmatched.length && !res.run2At ? "disabled" : ""}>${res && res.run2At ? "2차 다시 실행" : "2차 실행"}</button>
+      <button class="btn ${res && !res.run2At ? "btn-primary" : "btn-ghost"}" id="runMatch2" type="button" ${!res ? "disabled" : ""}>${res && res.run2At ? "2차 다시 실행" : "2차 실행"}</button>
     </div>
-    <p class="hint" style="margin:12px 0 0;text-align:center">${ps.length < 2 ? "승인된 참여자가 2명 이상이어야 실행할 수 있어요." : !res ? "오전 11시에 참여가 마감되면 서버가 1차를, 오후 1시에 2차를 자동으로 실행해요." : res.run2At ? "1차·2차 모두 서버가 실행했어요. 다시 실행하면 결과가 바뀌어요." : !unmatched.length ? "1차에서 모두 이어져 2차는 필요 없어요." : "1차가 끝났어요. 오후 1시에 미매칭 " + unmatched.length + "명으로 2차가 자동 실행돼요."}</p>
+    <p class="hint" style="margin:12px 0 0;text-align:center">${ps.length < 2 ? "승인된 참여자가 2명 이상이어야 실행할 수 있어요." : !res ? "오전 11시에 참여가 마감되면 서버가 1차를, 오후 1시에 2차를 자동으로 실행해요." : res.run2At ? "1차·2차 모두 서버가 실행했어요. 다시 실행하면 결과가 바뀌어요." : "1차가 끝났어요. 오후 1시에 2차가 자동 실행돼요. 지금 미매칭 " + unmatched.length + "명 · 그때까지 1차 상대를 넘긴 회원과 새로 참여한 회원도 함께 이어요."}</p>
   </section>
 
   <section class="card priority" style="margin-top:14px">
     <div class="h-sec"><h2>매칭 기준</h2><span class="count">위에 있을수록 우선</span></div>
     <div class="round-rules">
-      <div><b>항상 지켜요</b><span>만날 장소 1곳 이상 겹침 · 페미니즘 지향↔지양은 이어지지 않음 · 차단한 사람 · 14일 안에 만난 사람은 제외</span></div>
+      <div><b>절대 조건</b><span>페미니즘 · 나이 · 원하는 깁앤텍이 서로 맞아야 해요. 그 밖에 만날 장소 겹침 · 차단한 사람 · 14일 안(오늘 포함)에 만난 사람은 제외</span></div>
       <div><b>1차 · 11:00</b><span>회원마다 정한 우선순위로 점수를 매겨요. 서로의 1순위가 꼭 맞아야 이어져요.</span></div>
-      <div><b>2차 · 13:00</b><span>1차 미매칭만 모아요. 1순위가 안 맞아도 되지만, 둘 다 우선순위 점수가 1점 이상이어야 해요.</span></div>
+      <div><b>2차 · 13:00</b><span>1차 미매칭 · 1차 상대를 넘긴 사람(넘겨진 사람 포함) · 11~13시에 새로 참여한 사람을 모아요. 1순위가 안 맞아도 되지만, 둘 다 우선순위 항목이 하나 이상 맞아야 해요.</span></div>
     </div>
     <ol class="prio-list">
-      <li><b>우선순위 점수</b><span>1순위 16 · 2순위 8 · 3순위 4 · 4순위 2 · 5순위 1점. 1순위 하나가 나머지를 모두 합친 것보다 커요</span></li>
+      <li><b>우선순위 점수</b><span>1순위 256 · 2순위 128 · 3순위 64 · … · 9순위 1점. 1순위 하나가 나머지를 모두 합친 것보다 커요</span></li>
+      <li><b>가산점</b><span>연애 가치관 테스트에서 같은 답 1개당 1점 (최대 10점). 두 사람 점수에 똑같이 더해요</span></li>
       <li><b>짝 순서</b><span>두 사람 중 낮은 점수가 높은 짝부터 → 같으면 합계가 높은 짝. 한쪽만 만족하는 짝보다 서로 고르게 만족하는 짝이 먼저예요</span></li>
-      <li><b>점수 항목</b><span>페미니즘 · 헤어스타일 · 나이 · 거리 · 깁앤텍 궁합 (순서는 회원이 오늘의 조건에서 정해요)</span></li>
-      <li><b>같은 점수일 때</b><span>겹치는 좋아하는 것이 많은 짝 → 겹치는 장소가 많은 짝</span></li>
+      <li><b>점수 항목</b><span>거리 · 헤어스타일 · 음주 · 흡연 · 관심사(1개 이상 겹침) · 데이트 스타일 · 키 · 연락 스타일 · 원하는 관계 (순서는 회원이 오늘의 조건에서 정해요)</span></li>
+      <li><b>같은 점수일 때</b><span>겹치는 관심사가 많은 짝 → 겹치는 장소가 많은 짝</span></li>
     </ol>
   </section>
 
@@ -4482,7 +4847,7 @@ function renderMatchAdmin(root){
       </details>`;
     }).join("") : `<div class="empty" style="padding:20px 8px">아직 저장된 매칭 기록이 없어요. 11시·13시에 매칭이 돌면 여기에 쌓여요.</div>`}
   </section>
-  <p class="hint" style="margin:10px 4px 0">매일 밤 12시에 참여 상태와 오늘의 조건이 새로 시작되고, 기록은 남아요. 채팅창은 관리자도 볼 수 없고 밤 12시에 지워져요.</p>
+  <p class="hint" style="margin:10px 4px 0">매일 밤 12시에 참여 상태와 오늘의 조건이 새로 시작되고, 기록은 남아요. 채팅창은 관리자 화면에서는 볼 수 없고, 밤 12시에 닫힌 뒤 서버에 30일 보관했다가 지워져요.</p>
 
   `;
 
@@ -4497,6 +4862,7 @@ function renderMatchAdmin(root){
   const rb2 = $("#runMatch2");
   if(rb2) rb2.onclick = async () => {
     if(res && res.run2At && !confirm("2차를 다시 실행하면 2차로 이어진 쌍의 좋아요와 대화가 지워지고 새로 이어져요. 1차 결과는 그대로예요. 계속할까요?")) return;
+    if(res && !res.run2At && date === kstDate() && kstHour() < ROUND2_HOUR && !confirm("아직 오후 1시 전이에요. 지금 2차를 실행하면 2차 참여가 바로 마감돼서, 그 뒤에 1차 상대를 넘기거나 새로 참여하려는 회원은 2차에 들어갈 수 없어요. 오후 1시에는 서버가 자동으로 실행해요. 그래도 지금 실행할까요?")) return;
     rb2.disabled = true;
     try{ await q(sb.rpc("run_matching", { d: date, p_round: 2 })); toast("2차 매칭을 실행했어요."); }
     catch(x){ toast("2차 매칭을 실행하지 못했어요."); }
@@ -4530,7 +4896,9 @@ function flagChips(id){
     ["비매너", n(r => r.manner === "bad" || (r.bads || []).some(b => b === "rude" || b === "drink")), "half"],
     ["지각", n(r => (r.bads || []).includes("late")), "half"]
   ].filter(x => x[1]);
-  return items.length ? `<span class="flags">${items.map(([t, c, k]) => `<em class="st ${k}">${t} ${c}</em>`).join("")}</span>` : "";
+  const lf = (db.leftMembers || []).filter(x => x.rejoinedAs === id).sort((a, b) => b.at - a.at)[0];
+  const re = !lf ? "" : `<em class="st no" title="같은 이메일로 탈퇴한 적이 있어요">재가입 · ${new Date(lf.at).toLocaleDateString("ko-KR", { timeZone: "Asia/Seoul", month: "numeric", day: "numeric" })} 탈퇴${lf.status === "suspended" ? " (정지 중 탈퇴)" : ""}${lf.reports ? ` · 신고 ${lf.reports}` : ""}</em>`;
+  return items.length || re ? `<span class="flags">${re}${items.map(([t, c, k]) => `<em class="st ${k}">${t} ${c}</em>`).join("")}</span>` : "";
 }
 function respChip(p){
   if(!p) return "";
@@ -4569,6 +4937,17 @@ function renderInbox(root){
     : `<div class="card empty">들어온 요청이 없어요.</div>`}
   </div>
 
+  <div class="h-sec" style="margin:26px 4px 12px"><h2>탈퇴 기록</h2><span class="count">${(db.leftMembers || []).length}명</span></div>
+  <section class="card history">
+    ${(db.leftMembers || []).length ? db.leftMembers.map(x => `
+      <div class="rv-row ${x.rejoinedAs ? "alert" : ""}">
+        <div class="rv-top"><b>${esc(x.email || "(이메일 없음)")}</b><span>${fmt(x.at)} 탈퇴</span></div>
+        <div class="flags">${x.nickname ? `<em class="st half">${esc(x.nickname)}</em>` : ""}${x.status === "suspended" ? `<em class="st no">정지 중 탈퇴</em>` : x.status === "rejected" ? `<em class="st no">반려 상태</em>` : ""}${x.reports ? `<em class="st no">신고 ${x.reports}</em>` : ""}${x.hadMatch ? `<em class="st half">매칭 중 탈퇴</em>` : ""}${x.rejoinedAs ? `<em class="st no">재가입 ${fmt(x.rejoinedAt)}${db.users[x.rejoinedAs] && db.users[x.rejoinedAs].profile ? " · " + esc(db.users[x.rejoinedAs].profile.nickname) : ""}</em>` : ""}</div>
+        <button class="btn btn-ghost sm" type="button" data-left-del="${x.id}" style="margin-top:8px">기록 지우기</button>
+      </div>`).join("") : `<div class="empty" style="padding:20px 8px">탈퇴한 회원이 없어요.</div>`}
+  </section>
+  <p class="hint" style="margin:10px 4px 0">같은 이메일로 다시 가입하면 여기와 '회원 승인' 목록에 '재가입'으로 표시돼요. 기록은 1년 뒤 자동으로 지워지고, 먼저 지울 수도 있어요. 지우면 재가입 표시와 신고용 대화 기록도 함께 사라져요.</p>
+
   <div class="h-sec" style="margin:26px 4px 12px"><h2>만남 후기</h2><span class="count">${reviews.length}건</span></div>
   <section class="card history">
     ${reviews.length ? reviews.slice().sort((x, y) => (y.safety ? 1 : 0) - (x.safety ? 1 : 0) || y.at - x.at).map(r => `
@@ -4583,6 +4962,12 @@ function renderInbox(root){
   <p class="hint" style="margin:10px 4px 0">안전 문제 신고는 맨 위에 보여요. 노쇼·비매너·지각 후기를 받은 회원은 '회원 승인' 목록에 표시돼요.</p>`;
 
   wireReports(root);
+  root.querySelectorAll("[data-left-del]").forEach(b => b.onclick = async () => {
+    if(!confirm("이 탈퇴 기록을 지울까요? 재가입 표시와 신고용 대화 기록도 함께 지워져요.")) return;
+    b.disabled = true;
+    try{ await q(sb.rpc("admin_delete_left", { p_id: +b.dataset.leftDel })); toast("기록을 지웠어요."); }catch(x){ toast("지우지 못했어요."); }
+    await refresh();
+  });
   root.querySelectorAll("[data-req-issue]").forEach(b => b.onclick = async () => {
     b.disabled = true;
     try{ await q(sb.rpc("admin_reset_password", { p_req: +b.dataset.reqIssue })); }
